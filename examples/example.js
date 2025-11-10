@@ -48,7 +48,8 @@ const TOGGLEABLE_UI_IDS = [
 const PANELS = [
   { name: 'controls', panelClass: 'controls__panel', toggleClass: 'controls__toggle' },
   { name: 'keyboard', panelClass: 'keyboard__panel', toggleClass: 'keyboard__toggle' },
-  { name: 'mouse', panelClass: 'mouse__panel', toggleClass: 'mouse__toggle' }
+  { name: 'mouse', panelClass: 'mouse__panel', toggleClass: 'mouse__toggle' },
+  { name: 'share', panelClass: 'share__panel', toggleClass: 'share__toggle' }
 ];
 
 let elements = {};
@@ -113,6 +114,7 @@ const createTogglePanel = (panelName) => {
 const toggleControlsPanel = createTogglePanel('controls');
 const toggleKeyboardPanel = createTogglePanel('keyboard');
 const toggleMousePanel = createTogglePanel('mouse');
+const toggleSharePanel = createTogglePanel('share');
 
 const handleLayoutModeChange = (buttonGroup, clickedButton) => {
   const buttons = buttonGroup.querySelectorAll(SELECTORS.layoutButton);
@@ -140,12 +142,14 @@ const attachEventListeners = () => {
   const toggleBtn = document.querySelector(SELECTORS.controlsToggle);
   const keyboardToggleBtn = document.querySelector(SELECTORS.keyboardToggle);
   const mouseToggleBtn = document.querySelector(SELECTORS.mouseToggle);
+  const shareToggleBtn = document.querySelector('.share__toggle');
   const closeBtn = document.querySelector(SELECTORS.controlsClose);
   const layoutModeGroup = document.querySelector(SELECTORS.layoutModeGroup);
 
   toggleBtn?.addEventListener('click', toggleControlsPanel);
   keyboardToggleBtn?.addEventListener('click', toggleKeyboardPanel);
   mouseToggleBtn?.addEventListener('click', toggleMousePanel);
+  shareToggleBtn?.addEventListener('click', toggleSharePanel);
   closeBtn?.addEventListener('click', toggleControlsPanel);
 
   layoutModeGroup?.addEventListener('click', (event) => {

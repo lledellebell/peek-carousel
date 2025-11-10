@@ -3,13 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PeekCarousel - 빌드 라이브러리 예제</title>
+  <title>PeekCarousel - iPhone 17 Pro inspired carousel library</title>
+  <meta name="description" content="A modular carousel library with 3 layout modes (Stack/Card, Radial, Classic) featuring peek effect, touch/drag support, and full accessibility.">
+  <meta name="keywords" content="carousel, slider, peek, stack, card, swipe, gallery, apple, responsive, touch, drag, mobile, vanilla javascript, ES6">
+  <meta name="author" content="PeekCarousel">
+  <meta name="theme-color" content="#667eea">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lledellebell.github.io/peek-carousel/examples/example-built.html">
+  <meta property="og:title" content="PeekCarousel - iPhone 17 Pro inspired carousel library">
+  <meta property="og:description" content="A modular carousel library with 3 layout modes (Stack/Card, Radial, Classic) featuring peek effect, touch/drag support, and full accessibility.">
+  <meta property="og:image" content="https://lledellebell.github.io/peek-carousel/public/assets/share_image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="PeekCarousel Demo - Interactive carousel with peek effect">
+  <meta property="og:site_name" content="PeekCarousel">
+  <meta property="og:locale" content="ko_KR">
+
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://lledellebell.github.io/peek-carousel/examples/example-built.html">
+  <meta property="twitter:title" content="PeekCarousel - iPhone 17 Pro inspired carousel library">
+  <meta property="twitter:description" content="A modular carousel library with 3 layout modes (Stack/Card, Radial, Classic) featuring peek effect, touch/drag support, and full accessibility.">
+  <meta property="twitter:image" content="https://lledellebell.github.io/peek-carousel/public/assets/share_image.png">
+  <meta property="twitter:image:alt" content="PeekCarousel Demo - Interactive carousel with peek effect">
+
+  <link rel="canonical" href="https://lledellebell.github.io/peek-carousel/examples/example-built.html">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../public/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../public/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../public/apple-touch-icon.png">
+
   <link rel="stylesheet" href="../dist/peek-carousel.min.css">
   <link rel="stylesheet" href="./example.min.css">
 </head>
 <body>
   <div class="wrapper">
-    <!-- GitHub 링크 -->
     <a href="https://github.com/lledellebell/peek-carousel" class="github__link circle__button" target="_blank" rel="noopener noreferrer" aria-label="View source on GitHub" data-tooltip="View on GitHub">
       <svg width="32" height="32" viewBox="0 0 16 16" fill="currentColor">
         <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
@@ -22,7 +50,6 @@
       <p>스와이프 또는 드래그로 이동하세요</p>
     </header>
 
-    <!-- 컨트롤 패널 토글 버튼 -->
     <div class="top__controls">
       <button class="keyboard__toggle circle__button" aria-label="Toggle keyboard shortcuts panel" aria-expanded="false" data-tooltip="Keyboard Shortcuts">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -47,9 +74,19 @@
         </svg>
         <span class="tooltip">설정</span>
       </button>
+
+      <button class="share__toggle circle__button" aria-label="Toggle share panel" aria-expanded="false" data-tooltip="Share">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="18" cy="5" r="3"/>
+          <circle cx="6" cy="12" r="3"/>
+          <circle cx="18" cy="19" r="3"/>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+        </svg>
+        <span class="tooltip">공유하기</span>
+      </button>
     </div>
 
-    <!-- 키보드 단축키 패널 -->
     <div class="keyboard__panel">
       <div class="keyboard__header">
         <h3>키보드 단축키</h3>
@@ -82,7 +119,6 @@
       </div>
     </div>
 
-    <!-- 마우스 & 휠 패널 -->
     <div class="mouse__panel">
       <div class="mouse__header">
         <h3>마우스 & 휠</h3>
@@ -138,7 +174,6 @@
       </div>
     </div>
 
-    <!-- 컨트롤 패널 -->
     <div class="controls__panel">
       <div class="controls__header">
         <h3>설정</h3>
@@ -207,6 +242,70 @@
       </div>
     </div>
 
+    <div class="share__panel">
+      <div class="share__header">
+        <h3>공유하기</h3>
+      </div>
+      <div class="share__buttons">
+        <a href="https://twitter.com/intent/tweet?url=https://lledellebell.github.io/peek-carousel/examples/example-built.html&text=PeekCarousel - iPhone 17 Pro inspired carousel library"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="share__item share__item--twitter">
+          <div class="share__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </div>
+          <div class="share__content">
+            <span class="share__title">Twitter</span>
+            <span class="share__description">트위터에 공유하기</span>
+          </div>
+        </a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://lledellebell.github.io/peek-carousel/examples/example-built.html"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="share__item share__item--facebook">
+          <div class="share__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </div>
+          <div class="share__content">
+            <span class="share__title">Facebook</span>
+            <span class="share__description">페이스북에 공유하기</span>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://lledellebell.github.io/peek-carousel/examples/example-built.html"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="share__item share__item--linkedin">
+          <div class="share__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </div>
+          <div class="share__content">
+            <span class="share__title">LinkedIn</span>
+            <span class="share__description">링크드인에 공유하기</span>
+          </div>
+        </a>
+        <a href="https://www.reddit.com/submit?url=https://lledellebell.github.io/peek-carousel/examples/example-built.html&title=PeekCarousel - iPhone 17 Pro inspired carousel library"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="share__item share__item--reddit">
+          <div class="share__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/>
+            </svg>
+          </div>
+          <div class="share__content">
+            <span class="share__title">Reddit</span>
+            <span class="share__description">레딧에 공유하기</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
     <div class="peek-carousel" id="myCarousel">
       <div class="peek-carousel__track">
         <div class="peek-carousel__item">
@@ -259,8 +358,6 @@
           </figure>
         </div>
       </div>
-
-      <!-- 네비게이션 버튼, 인디케이터, 자동 회전 버튼, 카운터는 PeekCarousel에 의해 자동 생성됩니다 -->
     </div>
   </div>
 

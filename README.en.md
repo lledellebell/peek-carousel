@@ -16,6 +16,8 @@
 
 A modular carousel library inspired by the swipe interaction on the iPhone 17 Pro product page. Features a 'peek effect' where the next/previous items are slightly visible on either side of the active item, providing intuitive navigation. Supports three layout modes (Stack/Card, Radial Rotation, Classic Slide) with smooth transitions, touch/drag support, and full accessibility.
 
+![PeekCarousel Demo](./public/assets/share_image.png)
+
 **[Live Demo](https://lledellebell.github.io/peek-carousel/examples/example-built.html)**
 
 > [한국어](./README.md)
