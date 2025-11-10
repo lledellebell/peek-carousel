@@ -1,3 +1,5 @@
+import './example.css';
+
 const DEFAULT_LAYOUT_MODE = 'stack';
 
 const DEFAULT_OPTIONS = {
