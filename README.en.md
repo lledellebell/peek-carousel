@@ -29,44 +29,19 @@ A modular carousel library inspired by the swipe interaction on the iPhone 17 Pr
 
 ## Installation
 
-### NPM
-
 ```bash
 npm install peek-carousel
 ```
-
-### CDN
-
-```html
-<!-- CSS -->
-<link rel="stylesheet" href="https://unpkg.com/peek-carousel/dist/peek-carousel.min.css">
-
-<!-- JavaScript (UMD) -->
-<script src="https://unpkg.com/peek-carousel/dist/peek-carousel.min.js"></script>
-```
-
-### ES Module
 
 ```javascript
 import PeekCarousel from 'peek-carousel';
 ```
 
-### Manual
-
-Download the latest release and include the files:
+Or via CDN:
 
 ```html
-<!-- CSS -->
-<link rel="stylesheet" href="path/to/dist/peek-carousel.min.css">
-
-<!-- JavaScript (UMD) -->
-<script src="path/to/dist/peek-carousel.min.js"></script>
-```
-
-Or use ES Module:
-
-```javascript
-import PeekCarousel from './dist/peek-carousel.esm.min.js';
+<link rel="stylesheet" href="https://unpkg.com/peek-carousel/dist/peek-carousel.min.css">
+<script src="https://unpkg.com/peek-carousel/dist/peek-carousel.min.js"></script>
 ```
 
 ## Quick Start
@@ -108,17 +83,8 @@ import PeekCarousel from './dist/peek-carousel.esm.min.js';
 
 ```javascript
 const carousel = new PeekCarousel('#myCarousel', {
-  startIndex: 0,
-  layoutMode: 'stack', // 'stack', 'radial', or 'classic'
-  autoRotate: false,
-  autoRotateInterval: 3000,
-  swipeThreshold: 50,
-  dragThreshold: 80,
-  preloadRange: 2,
-  enableKeyboard: true,
-  enableWheel: true,
-  enableTouch: true,
-  enableMouse: true
+  layoutMode: 'stack', // 'stack', 'radial', 'classic'
+  autoRotate: false
 });
 ```
 
@@ -190,16 +156,6 @@ console.log(carousel.totalItems);
 console.log(carousel.isAutoRotating);
 ```
 
-## Keyboard Navigation
-
-| Key | Action |
-|-----|--------|
-| `←` / `→` | Previous / Next slide |
-| `Home` | Jump to first slide |
-| `End` | Jump to last slide |
-| `1` - `N` | Jump to specific slide (1-based) |
-| `Space` | Toggle auto-rotate |
-
 ## Browser Support
 
 - Chrome/Edge (latest)
@@ -210,114 +166,32 @@ console.log(carousel.isAutoRotating);
 
 ## Usage Examples
 
-### Basic Usage
-
 ```javascript
-const carousel = new PeekCarousel('#myCarousel');
-```
-
-### Radial Mode
-
-```javascript
-const carousel = new PeekCarousel('#myCarousel', {
-  layoutMode: 'radial' // 3D circular rotation
-});
-```
-
-### Classic Slide Mode
-
-```javascript
-const carousel = new PeekCarousel('#myCarousel', {
-  layoutMode: 'classic' // Horizontal slide layout
-});
-```
-
-### With Auto-rotate
-
-```javascript
-const carousel = new PeekCarousel('#myCarousel', {
-  autoRotate: true,
-  autoRotateInterval: 5000
-});
-```
-
-### Dynamic Layout Mode Switching
-
-```javascript
+// Basic usage
 const carousel = new PeekCarousel('#myCarousel');
 
 // Change layout mode
-carousel.options.layoutMode = 'radial'; // or 'classic'
-carousel.updateLayoutClass();
-carousel.animator.updateCarousel();
-```
+new PeekCarousel('#myCarousel', { layoutMode: 'radial' });
 
-### Disable Interactions
-
-```javascript
-const carousel = new PeekCarousel('#myCarousel', {
-  enableKeyboard: false,
-  enableWheel: false,
-  enableMouse: false
-});
-```
-
-### Programmatic Control
-
-```javascript
-const carousel = new PeekCarousel('#myCarousel');
-
-// Navigate programmatically
-document.getElementById('customNext').addEventListener('click', () => {
-  carousel.next();
-});
-
-// Jump to specific slide
-document.getElementById('jumpToSlide3').addEventListener('click', () => {
-  carousel.goTo(2); // 0-based index
-});
+// Enable auto-rotate
+new PeekCarousel('#myCarousel', { autoRotate: true });
 ```
 
 ## Customization
 
-You can customize the carousel by overriding CSS styles:
+Override CSS classes to customize styles:
 
 ```css
-/* Button styles */
-.peek-carousel__btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-/* Indicator styles */
-.peek-carousel__indicator--active::before {
-  background: #667eea;
-}
-
-/* Mode-specific styles */
-.peek-carousel--stack .peek-carousel__item { /* ... */ }
-.peek-carousel--radial .peek-carousel__item { /* ... */ }
-.peek-carousel--classic .peek-carousel__item { /* ... */ }
+.peek-carousel__btn { /* Button styles */ }
+.peek-carousel__indicator--active::before { /* Indicator styles */ }
 ```
 
 ## Development
 
-### Build Setup
-
 ```bash
-# Clone repository
 git clone https://github.com/lledellebell/peek-carousel.git
-cd peek-carousel
-
-# Install dependencies
 npm install
-
-# Production build
 npm run build
-
-# Start development server (Python)
-python -m http.server 8080
-
-# Open http://localhost:8080/examples/example-built.html
 ```
 
 ## Contributing

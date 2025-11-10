@@ -29,44 +29,19 @@ iPhone 17 Pro 제품 소개 페이지의 스와이프 인터랙션에서 영감�
 
 ## 설치
 
-### NPM
-
 ```bash
 npm install peek-carousel
 ```
-
-### CDN
-
-```html
-<!-- CSS -->
-<link rel="stylesheet" href="https://unpkg.com/peek-carousel/dist/peek-carousel.min.css">
-
-<!-- JavaScript (UMD) -->
-<script src="https://unpkg.com/peek-carousel/dist/peek-carousel.min.js"></script>
-```
-
-### ES Module
 
 ```javascript
 import PeekCarousel from 'peek-carousel';
 ```
 
-### 수동 설치
-
-최신 릴리즈를 다운로드하고 파일을 포함하세요:
+또는 CDN:
 
 ```html
-<!-- CSS -->
-<link rel="stylesheet" href="path/to/dist/peek-carousel.min.css">
-
-<!-- JavaScript (UMD) -->
-<script src="path/to/dist/peek-carousel.min.js"></script>
-```
-
-또는 ES Module 사용:
-
-```javascript
-import PeekCarousel from './dist/peek-carousel.esm.min.js';
+<link rel="stylesheet" href="https://unpkg.com/peek-carousel/dist/peek-carousel.min.css">
+<script src="https://unpkg.com/peek-carousel/dist/peek-carousel.min.js"></script>
 ```
 
 ## 빠른 시작
@@ -108,17 +83,8 @@ import PeekCarousel from './dist/peek-carousel.esm.min.js';
 
 ```javascript
 const carousel = new PeekCarousel('#myCarousel', {
-  startIndex: 1,
-  layoutMode: 'stack', // 'stack', 'radial', or 'classic'
-  autoRotate: false,
-  autoRotateInterval: 3000,
-  swipeThreshold: 50,
-  dragThreshold: 80,
-  preloadRange: 2,
-  enableKeyboard: true,
-  enableWheel: true,
-  enableTouch: true,
-  enableMouse: true
+  layoutMode: 'stack', // 'stack', 'radial', 'classic'
+  autoRotate: false
 });
 ```
 
@@ -186,16 +152,6 @@ console.log(carousel.totalItems);
 console.log(carousel.isAutoRotating);
 ```
 
-## 키보드 내비게이션
-
-| 키 | 동작 |
-|----|------|
-| `←` / `→` | 이전 / 다음 슬라이드 |
-| `Home` | 첫 번째 슬라이드로 이동 |
-| `End` | 마지막 슬라이드로 이동 |
-| `1` - `N` | 특정 슬라이드로 이동 (1부터 시작) |
-| `Space` | 자동 회전 토글 |
-
 ## 브라우저 지원
 
 - Chrome/Edge (최신)
@@ -206,114 +162,32 @@ console.log(carousel.isAutoRotating);
 
 ## 사용 예제
 
-### 기본 사용
-
 ```javascript
-const carousel = new PeekCarousel('#myCarousel');
-```
-
-### Radial 모드 사용
-
-```javascript
-const carousel = new PeekCarousel('#myCarousel', {
-  layoutMode: 'radial' // 3D 원형 회전
-});
-```
-
-### Classic 슬라이드 모드 사용
-
-```javascript
-const carousel = new PeekCarousel('#myCarousel', {
-  layoutMode: 'classic' // 수평 슬라이드 레이아웃
-});
-```
-
-### 자동 회전 활성화
-
-```javascript
-const carousel = new PeekCarousel('#myCarousel', {
-  autoRotate: true,
-  autoRotateInterval: 5000
-});
-```
-
-### 동적 레이아웃 모드 전환
-
-```javascript
+// 기본 사용
 const carousel = new PeekCarousel('#myCarousel');
 
 // 레이아웃 모드 변경
-carousel.options.layoutMode = 'radial'; // 또는 'classic'
-carousel.updateLayoutClass();
-carousel.animator.updateCarousel();
-```
+new PeekCarousel('#myCarousel', { layoutMode: 'radial' });
 
-### 인터랙션 비활성화
-
-```javascript
-const carousel = new PeekCarousel('#myCarousel', {
-  enableKeyboard: false,
-  enableWheel: false,
-  enableMouse: false
-});
-```
-
-### 프로그래밍 방식 제어
-
-```javascript
-const carousel = new PeekCarousel('#myCarousel');
-
-// 프로그래밍 방식으로 네비게이션
-document.getElementById('customNext').addEventListener('click', () => {
-  carousel.next();
-});
-
-// 특정 슬라이드로 이동
-document.getElementById('jumpToSlide3').addEventListener('click', () => {
-  carousel.goTo(2); // 0부터 시작하는 인덱스
-});
+// 자동 회전 활성화
+new PeekCarousel('#myCarousel', { autoRotate: true });
 ```
 
 ## 커스터마이징
 
-CSS로 스타일을 오버라이드하여 캐러셀을 커스터마이징할 수 있습니다:
+CSS 클래스를 오버라이드하여 스타일을 커스터마이징할 수 있습니다:
 
 ```css
-/* 버튼 스타일 */
-.peek-carousel__btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-/* 인디케이터 스타일 */
-.peek-carousel__indicator--active::before {
-  background: #667eea;
-}
-
-/* 모드별 스타일 */
-.peek-carousel--stack .peek-carousel__item { /* ... */ }
-.peek-carousel--radial .peek-carousel__item { /* ... */ }
-.peek-carousel--classic .peek-carousel__item { /* ... */ }
+.peek-carousel__btn { /* 버튼 스타일 */ }
+.peek-carousel__indicator--active::before { /* 인디케이터 스타일 */ }
 ```
 
 ## 개발
 
-### 빌드 설정
-
 ```bash
-# 저장소 클론
 git clone https://github.com/lledellebell/peek-carousel.git
-cd peek-carousel
-
-# 의존성 설치
 npm install
-
-# 프로덕션 빌드
 npm run build
-
-# 개발 서버 시작 (Python)
-python -m http.server 8080
-
-# http://localhost:8080/examples/example-built.html 열기
 ```
 
 ## 기여
