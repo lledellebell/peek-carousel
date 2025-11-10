@@ -1,9 +1,9 @@
 # PeekCarousel
 
-[![npm version](https://badgen.net/npm/v/peek-carousel)](https://www.npmjs.com/package/peek-carousel)
-[![npm downloads](https://badgen.net/npm/dm/peek-carousel)](https://www.npmjs.com/package/peek-carousel)
-[![bundle size](https://badgen.net/bundlephobia/minzip/peek-carousel)](https://bundlephobia.com/package/peek-carousel)
-[![license](https://badgen.net/npm/license/peek-carousel)](https://opensource.org/licenses/MIT)
+[![package version](https://badgen.net/badge/version/1.0.0/blue)](https://github.com/lledellebell/peek-carousel/packages)
+[![package name](https://badgen.net/badge/package/@lledellebell%2Fpeek-carousel/blue)](https://github.com/lledellebell/peek-carousel/packages)
+[![bundle size](https://badgen.net/badge/bundle%20size/155KB/green)](https://github.com/lledellebell/peek-carousel/packages)
+[![license](https://badgen.net/badge/license/MIT/blue)](https://opensource.org/licenses/MIT)
 
 [![stars](https://badgen.net/github/stars/lledellebell/peek-carousel)](https://github.com/lledellebell/peek-carousel/stargazers)
 [![issues](https://badgen.net/github/open-issues/lledellebell/peek-carousel)](https://github.com/lledellebell/peek-carousel/issues)
@@ -12,7 +12,7 @@
 
 [![JavaScript](https://badgen.net/badge/JavaScript/ES6+/yellow)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![SCSS](https://badgen.net/badge/SCSS/Sass/pink)](https://sass-lang.com/)
-[![dependencies](https://badgen.net/badge/dependencies/0/green)](https://www.npmjs.com/package/peek-carousel)
+[![dependencies](https://badgen.net/badge/dependencies/0/green)](https://github.com/lledellebell/peek-carousel/packages)
 
 A modular carousel library inspired by the swipe interaction on the iPhone 17 Pro product page. Features a 'peek effect' where the next/previous items are slightly visible on either side of the active item, providing intuitive navigation. Supports three layout modes (Stack/Card, Radial Rotation, Classic Slide) with smooth transitions, touch/drag support, and full accessibility.
 
@@ -32,18 +32,11 @@ A modular carousel library inspired by the swipe interaction on the iPhone 17 Pr
 ## Installation
 
 ```bash
-npm install peek-carousel
+npm install @lledellebell/peek-carousel
 ```
 
 ```javascript
-import PeekCarousel from 'peek-carousel';
-```
-
-Or via CDN:
-
-```html
-<link rel="stylesheet" href="https://unpkg.com/peek-carousel/dist/peek-carousel.min.css">
-<script src="https://unpkg.com/peek-carousel/dist/peek-carousel.min.js"></script>
+import PeekCarousel from '@lledellebell/peek-carousel';
 ```
 
 ## Quick Start

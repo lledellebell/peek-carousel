@@ -1,9 +1,9 @@
 # PeekCarousel
 
-[![npm version](https://badgen.net/npm/v/peek-carousel)](https://www.npmjs.com/package/peek-carousel)
-[![npm downloads](https://badgen.net/npm/dm/peek-carousel)](https://www.npmjs.com/package/peek-carousel)
-[![bundle size](https://badgen.net/bundlephobia/minzip/peek-carousel)](https://bundlephobia.com/package/peek-carousel)
-[![license](https://badgen.net/npm/license/peek-carousel)](https://opensource.org/licenses/MIT)
+[![package version](https://badgen.net/badge/version/1.0.0/blue)](https://github.com/lledellebell/peek-carousel/packages)
+[![package name](https://badgen.net/badge/package/@lledellebell%2Fpeek-carousel/blue)](https://github.com/lledellebell/peek-carousel/packages)
+[![bundle size](https://badgen.net/badge/bundle%20size/155KB/green)](https://github.com/lledellebell/peek-carousel/packages)
+[![license](https://badgen.net/badge/license/MIT/blue)](https://opensource.org/licenses/MIT)
 
 [![stars](https://badgen.net/github/stars/lledellebell/peek-carousel)](https://github.com/lledellebell/peek-carousel/stargazers)
 [![issues](https://badgen.net/github/open-issues/lledellebell/peek-carousel)](https://github.com/lledellebell/peek-carousel/issues)
@@ -12,7 +12,7 @@
 
 [![JavaScript](https://badgen.net/badge/JavaScript/ES6+/yellow)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![SCSS](https://badgen.net/badge/SCSS/Sass/pink)](https://sass-lang.com/)
-[![dependencies](https://badgen.net/badge/dependencies/0/green)](https://www.npmjs.com/package/peek-carousel)
+[![dependencies](https://badgen.net/badge/dependencies/0/green)](https://github.com/lledellebell/peek-carousel/packages)
 
 iPhone 17 Pro 제품 소개 페이지의 스와이프 인터랙션에서 영감을 받은 모듈형 캐러셀 라이브러리. 현재 활성 아이템 양옆으로 다음/이전 아이템이 살짝 보이는 'Peek 효과'를 제공하여 직관적인 내비게이션을 지원합니다. 세 가지 레이아웃 모드(Stack/Card, Radial Rotation, Classic Slide)를 지원하며, 부드러운 전환 효과, 터치/드래그 지원, 완전한 접근성을 제공합니다.
 
@@ -32,18 +32,11 @@ iPhone 17 Pro 제품 소개 페이지의 스와이프 인터랙션에서 영감�
 ## 설치
 
 ```bash
-npm install peek-carousel
+npm install @lledellebell/peek-carousel
 ```
 
 ```javascript
-import PeekCarousel from 'peek-carousel';
-```
-
-또는 CDN:
-
-```html
-<link rel="stylesheet" href="https://unpkg.com/peek-carousel/dist/peek-carousel.min.css">
-<script src="https://unpkg.com/peek-carousel/dist/peek-carousel.min.js"></script>
+import PeekCarousel from '@lledellebell/peek-carousel';
 ```
 
 ## 빠른 시작
