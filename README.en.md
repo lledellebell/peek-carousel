@@ -345,15 +345,4 @@ Inspired by the swipe interaction on the iPhone 17 Pro product page.
 
 ## Changelog
 
-### 1.0.0 (2025-01-XX)
-- Initial release
-- **Three Layout Modes**: Stack/Card, Radial Rotation, Classic Slide
-- **Modular Architecture**: Extensible structure built with ES6 modules
-- **Shortest-path Rotation**: Optimized rotation algorithm in Radial mode
-- **Full Touch/Drag Support**: Including momentum scrolling
-- **Keyboard Navigation**: Arrow keys, Home/End, Space, number keys
-- **Auto-rotate Feature**: Apple Camera-style progress indicators
-- **Auto Icon Injection**: Navigation and auto-rotate button icons automatically provided
-- **Multiple Build Formats**: ESM, UMD, and minified versions
-- **SCSS-based Styling**: Customizable variables
-- **Full Accessibility**: ARIA support
+See [GitHub Releases](https://github.com/lledellebell/peek-carousel/releases) for the changelog.

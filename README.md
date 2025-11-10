@@ -341,15 +341,4 @@ iPhone 17 Pro 제품 소개 페이지의 스와이프 인터랙션에서 영감�
 
 ## 변경 로그
 
-### 1.0.0 (2025-01-XX)
-- 초기 릴리스
-- **세 가지 레이아웃 모드**: Stack/Card, Radial Rotation, Classic Slide
-- **모듈형 아키텍처**: ES6 모듈 기반 확장 가능한 구조
-- **최단 경로 회전**: Radial 모드에서 최적화된 회전 알고리즘
-- **완전한 터치/드래그 지원**: 모멘텀 스크롤 포함
-- **키보드 내비게이션**: 화살표, Home/End, Space, 숫자 키
-- **자동 회전 기능**: Apple 카메라 스타일 진행 표시
-- **자동 아이콘 삽입**: 네비게이션 및 자동 회전 버튼 아이콘 자동 제공
-- **다양한 빌드 형식**: ESM, UMD, 압축 버전
-- **SCSS 기반 스타일**: 커스터마이징 가능한 변수
-- **완전한 접근성**: ARIA 지원
+변경 사항은 [GitHub Releases](https://github.com/lledellebell/peek-carousel/releases)를 참조하세요.
