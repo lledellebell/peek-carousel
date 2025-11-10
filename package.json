@@ -1,6 +1,6 @@
 {
   "name": "@lledellebell/peek-carousel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A modular carousel library with three layout modes (Stack/Card, Radial, Classic) featuring peek effect, touch/drag support, and full accessibility - inspired by iPhone 17 Pro",
   "type": "module",
   "publishConfig": {
