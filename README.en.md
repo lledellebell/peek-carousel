@@ -1,18 +1,18 @@
 # PeekCarousel
 
-[![npm version](https://img.shields.io/npm/v/peek-carousel.svg?style=social&logo=npm)](https://www.npmjs.com/package/peek-carousel)
-[![npm downloads](https://img.shields.io/npm/dm/peek-carousel.svg?style=social&logo=npm)](https://www.npmjs.com/package/peek-carousel)
-[![Bundle Size](https://img.shields.io/bundlephobia/minzip/peek-carousel?style=social&logo=webpack)](https://bundlephobia.com/package/peek-carousel)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=social)](https://opensource.org/licenses/MIT)
+[![npm version](https://badgen.net/npm/v/peek-carousel)](https://www.npmjs.com/package/peek-carousel)
+[![npm downloads](https://badgen.net/npm/dm/peek-carousel)](https://www.npmjs.com/package/peek-carousel)
+[![bundle size](https://badgen.net/bundlephobia/minzip/peek-carousel)](https://bundlephobia.com/package/peek-carousel)
+[![license](https://badgen.net/npm/license/peek-carousel)](https://opensource.org/licenses/MIT)
 
-[![GitHub Stars](https://img.shields.io/github/stars/lledellebell/peek-carousel?style=social&logo=github)](https://github.com/lledellebell/peek-carousel/stargazers)
-[![GitHub Issues](https://img.shields.io/github/issues/lledellebell/peek-carousel?style=social&logo=github)](https://github.com/lledellebell/peek-carousel/issues)
-[![GitHub Forks](https://img.shields.io/github/forks/lledellebell/peek-carousel?style=social&logo=github)](https://github.com/lledellebell/peek-carousel/network/members)
-[![Last Commit](https://img.shields.io/github/last-commit/lledellebell/peek-carousel?style=social&logo=git)](https://github.com/lledellebell/peek-carousel/commits)
+[![stars](https://badgen.net/github/stars/lledellebell/peek-carousel)](https://github.com/lledellebell/peek-carousel/stargazers)
+[![issues](https://badgen.net/github/open-issues/lledellebell/peek-carousel)](https://github.com/lledellebell/peek-carousel/issues)
+[![forks](https://badgen.net/github/forks/lledellebell/peek-carousel)](https://github.com/lledellebell/peek-carousel/network/members)
+[![last commit](https://badgen.net/github/last-commit/lledellebell/peek-carousel)](https://github.com/lledellebell/peek-carousel/commits)
 
-[![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=social&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=social&logo=sass&logoColor=white)](https://sass-lang.com/)
-[![Zero Dependencies](https://img.shields.io/badge/Dependencies-0-brightgreen?style=social)](https://www.npmjs.com/package/peek-carousel)
+[![JavaScript](https://badgen.net/badge/JavaScript/ES6+/yellow)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![SCSS](https://badgen.net/badge/SCSS/Sass/pink)](https://sass-lang.com/)
+[![dependencies](https://badgen.net/badge/dependencies/0/green)](https://www.npmjs.com/package/peek-carousel)
 
 A modular carousel library inspired by the swipe interaction on the iPhone 17 Pro product page. Features a 'peek effect' where the next/previous items are slightly visible on either side of the active item, providing intuitive navigation. Supports three layout modes (Stack/Card, Radial Rotation, Classic Slide) with smooth transitions, touch/drag support, and full accessibility.
 
