@@ -16,25 +16,16 @@
 
 A modular carousel library inspired by the swipe interaction on the iPhone 17 Pro product page. Features a 'peek effect' where the next/previous items are slightly visible on either side of the active item, providing intuitive navigation. Supports three layout modes (Stack/Card, Radial Rotation, Classic Slide) with smooth transitions, touch/drag support, and full accessibility.
 
+**[Live Demo](https://lledellebell.github.io/peek-carousel/examples/example-built.html)**
+
 > [한국어](./README.md)
 
 ## Features
 
-- **Three Layout Modes**
-  - **Stack/Card Mode**: Center card with left/right peek preview
-  - **Radial Rotation Mode**: 3D circular rotation carousel
-  - **Classic Slide Mode**: Horizontal slide layout with center active item and peek display
-- **Modular Architecture** - Extensible structure built with ES6 modules
-- **Auto Icon Injection** - Navigation and auto-rotate button icons automatically provided
-- **Fully Responsive** - Optimized experience on all devices
-- **Touch & Drag** - Swipe and drag support with momentum scrolling
-- **Keyboard Navigation** - Arrow keys, Home/End, Space, number keys (1-N)
-- **Auto-rotate** - Optional automatic carousel rotation with progress indicators
-- **Accessible** - Full ARIA support and keyboard navigation
-- **Performance Optimized** - Image preloading, momentum scrolling, shortest-path rotation
-- **Customizable** - Easy theming with SCSS variables
-- **Zero Dependencies** - Pure vanilla JavaScript
-- **Multiple Build Formats** - ESM, UMD, and minified versions available
+- **3 Layout Modes** - Stack/Card, Radial Rotation, Classic Slide
+- **Full Interaction Support** - Touch/drag, keyboard, and mouse wheel navigation
+- **Zero Dependencies** - Built with pure vanilla JavaScript
+- **Fully Accessible** - ARIA support and keyboard navigation
 
 ## Installation
 
