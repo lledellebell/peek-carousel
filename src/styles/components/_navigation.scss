@@ -1,0 +1,193 @@
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+@use 'sass:map';
+
+$nav-animation: (
+  duration: 0.6s,
+  easing: cubic-bezier(0.4, 0, 0.2, 1),
+  delay: 0.5s,
+  translate-y: 20px
+);
+
+$button-config: (
+  nav: (
+    size: $nav-btn-size,
+    size-mobile: $nav-btn-size-mobile,
+    bg: $color-white-10,
+    bg-hover: $color-white-20,
+    border: $color-white-20,
+    blur: 10px
+  ),
+  auto-rotate: (
+    size: $auto-rotate-btn-size,
+    bg: $color-black-50,
+    bg-hover: $color-black-60,
+    bg-active: $color-white-20,
+    border: $color-white-15,
+    border-hover: $color-white-30,
+    blur: $carousel-blur
+  )
+);
+
+$icon-states: (
+  default: (
+    play: block,
+    pause: none
+  ),
+  active: (
+    play: none,
+    pause: block
+  )
+);
+
+$transforms: (
+  hover-scale: 1.1,
+  active-scale: 0.95,
+  nudge-distance: 2px
+);
+
+
+@mixin button-base($size, $bg, $border, $blur) {
+  width: $size;
+  height: $size;
+  border-radius: $radius-circle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all $transition-base;
+  user-select: none;
+  @include glassmorphism($bg, $blur, $border);
+}
+
+@mixin interactive-states($bg-hover, $border-hover: null) {
+  &:hover {
+    background: $bg-hover;
+    transform: scale(map.get($transforms, hover-scale));
+
+    @if $border-hover {
+      border-color: $border-hover;
+    }
+  }
+
+  &:active {
+    transform: scale(map.get($transforms, active-scale));
+  }
+
+  &:focus-visible {
+    outline: 3px solid $color-primary-80;
+    outline-offset: 4px;
+  }
+}
+
+@mixin icon-visibility($state) {
+  .play-icon {
+    display: map.get(map.get($icon-states, $state), play);
+  }
+
+  .pause-icon {
+    display: map.get(map.get($icon-states, $state), pause);
+  }
+}
+
+.peek-carousel__nav {
+  position: absolute;
+  inset: auto auto 8% 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: $spacing-3xl;
+  z-index: $z-index-controls;
+  align-items: center;
+  opacity: 0;
+  animation: fadeInUpNav
+    map.get($nav-animation, duration)
+    map.get($nav-animation, easing)
+    forwards;
+  animation-delay: map.get($nav-animation, delay);
+
+  @media (max-width: 768px) {
+    bottom: 12%;
+  }
+}
+
+.peek-carousel__btn {
+  $nav-config: map.get($button-config, nav);
+
+  @include button-base(
+    map.get($nav-config, size),
+    map.get($nav-config, bg),
+    map.get($nav-config, border),
+    map.get($nav-config, blur)
+  );
+
+  color: white;
+  font-size: 1rem;
+  place-items: center;
+  display: grid;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    transition: transform $transition-fast;
+  }
+
+  @include interactive-states(map.get($nav-config, bg-hover));
+
+  &:hover svg {
+    transform: translateX(0);
+  }
+
+  &.prev-btn:hover svg {
+    transform: translateX(calc(-1 * map.get($transforms, nudge-distance)));
+  }
+
+  &.next-btn:hover svg {
+    transform: translateX(map.get($transforms, nudge-distance));
+  }
+
+  @media (max-width: 768px) {
+    width: map.get($nav-config, size-mobile);
+    height: map.get($nav-config, size-mobile);
+  }
+
+  &--auto-rotate {
+    $rotate-config: map.get($button-config, auto-rotate);
+
+    @include button-base(
+      map.get($rotate-config, size),
+      map.get($rotate-config, bg),
+      map.get($rotate-config, border),
+      map.get($rotate-config, blur)
+    );
+
+    padding: 0;
+
+    svg {
+      flex-shrink: 0;
+    }
+
+    @include icon-visibility(default);
+    @include interactive-states(
+      map.get($rotate-config, bg-hover),
+      map.get($rotate-config, border-hover)
+    );
+
+    &.peek-carousel__btn--active {
+      background: map.get($rotate-config, bg-active);
+      border-color: map.get($rotate-config, border-hover);
+      @include icon-visibility(active);
+    }
+  }
+}
+
+@keyframes fadeInUpNav {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(map.get($nav-animation, translate-y));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}

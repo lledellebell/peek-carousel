@@ -1,0 +1,72 @@
+@use '../../base/variables' as *;
+@use 'carousel-variables' as *;
+@use 'carousel-mixins' as *;
+@use 'sass:list';
+
+.peek-carousel--radial {
+  perspective: $perspective-distance;
+
+  .peek-carousel__track {
+    transition: transform $transition-smooth;
+    transform: rotateY(calc(var(--carousel-rotation, 0deg) + var(--drag-rotation-y)));
+
+    &:active {
+      transition: transform $drag-transition-duration;
+    }
+  }
+
+  .peek-carousel__item {
+    opacity: 0;
+    visibility: hidden;
+    cursor: default;
+    transform: translate(-50%, -50%)
+               rotateY(var(--item-angle))
+               translateZ(var(--item-radius));
+    @include base-item-transition($radial-visibility-delay);
+
+    &--active {
+      opacity: 1;
+      visibility: visible;
+      z-index: $z-index-active;
+      cursor: grab;
+      @include base-item-transition(0s);
+
+      &:active {
+        cursor: grabbing;
+      }
+
+      .peek-carousel__image {
+        box-shadow: list.join(
+          (0 40px 100px $color-primary-60,
+           0 0 40px $color-primary-40,
+           0 0 80px $color-secondary),
+          (),
+          $separator: comma
+        );
+        filter: brightness($radial-active-brightness) saturate($radial-active-saturation);
+      }
+    }
+
+    &--prev,
+    &--next {
+      opacity: $radial-peek-opacity;
+      visibility: visible;
+      z-index: $z-index-item;
+      @include base-item-transition(0s);
+
+      .peek-carousel__image {
+        filter: brightness($radial-peek-brightness) saturate($radial-peek-saturation);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+      }
+    }
+
+    &:not(&--active) .peek-carousel__image {
+      filter: brightness($radial-inactive-brightness) saturate($radial-inactive-saturation);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    @media (max-width: $breakpoint-mobile) {
+      --item-radius: #{$item-mobile-radius};
+    }
+  }
+}

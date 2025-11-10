@@ -1,0 +1,16 @@
+@use 'variables' as *;
+@use 'sass:color';
+@use 'sass:map';
+
+$focus-config: (
+  outline-width: 3px,
+  outline-offset: 8px,
+  outline-alpha: 0.8
+);
+
+.peek-carousel__item:focus-visible {
+  outline: map.get($focus-config, outline-width) solid
+    color.change($color-primary, $alpha: map.get($focus-config, outline-alpha));
+  outline-offset: map.get($focus-config, outline-offset);
+  border-radius: $radius-lg;
+}

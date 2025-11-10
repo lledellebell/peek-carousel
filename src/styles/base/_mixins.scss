@@ -1,0 +1,7 @@
+@use 'variables' as *;
+
+@mixin glassmorphism($bg-color, $blur, $border-color) {
+  background: $bg-color;
+  backdrop-filter: blur($blur);
+  border: 1px solid $border-color;
+}

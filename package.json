@@ -1,0 +1,84 @@
+{
+  "name": "peek-carousel",
+  "version": "1.0.0",
+  "description": "A Stack/Card carousel with peek effect - inspired by Apple's Camera UI",
+  "type": "module",
+  "main": "dist/peek-carousel.js",
+  "module": "dist/peek-carousel.esm.js",
+  "types": "types/index.d.ts",
+  "style": "dist/peek-carousel.css",
+  "exports": {
+    ".": {
+      "import": "./dist/peek-carousel.esm.js",
+      "require": "./dist/peek-carousel.js",
+      "types": "./types/index.d.ts"
+    },
+    "./dist/peek-carousel.css": "./dist/peek-carousel.css",
+    "./dist/peek-carousel.min.css": "./dist/peek-carousel.min.css"
+  },
+  "files": [
+    "src/",
+    "dist/",
+    "types/",
+    "examples/",
+    "README.md",
+    "README.en.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build:js": "rollup -c",
+    "build:css": "sass src/styles/peek-carousel.scss dist/peek-carousel.css --no-source-map",
+    "build:css:min": "sass src/styles/peek-carousel.scss dist/peek-carousel.min.css --style=compressed --no-source-map",
+    "postbuild:css": "postcss dist/peek-carousel.css -o dist/peek-carousel.css",
+    "postbuild:css:min": "postcss dist/peek-carousel.min.css -o dist/peek-carousel.min.css",
+    "build": "npm run clean && npm-run-all --parallel build:js build:css build:css:min",
+    "watch:js": "rollup -c -w",
+    "watch:css": "sass --watch src/styles/peek-carousel.scss dist/peek-carousel.css",
+    "watch": "npm-run-all --parallel watch:js watch:css",
+    "dev": "npm run watch",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lledellebell/peek-carousel.git"
+  },
+  "keywords": [
+    "carousel",
+    "slider",
+    "peek",
+    "stack",
+    "card",
+    "swipe",
+    "gallery",
+    "apple",
+    "responsive",
+    "touch",
+    "drag",
+    "mobile"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lledellebell/peek-carousel/issues"
+  },
+  "homepage": "https://github.com/lledellebell/peek-carousel#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.23.0",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "autoprefixer": "^10.4.16",
+    "cssnano": "^6.0.1",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.31",
+    "postcss-cli": "^11.0.0",
+    "rollup": "^4.1.4",
+    "sass": "^1.69.5"
+  }
+}

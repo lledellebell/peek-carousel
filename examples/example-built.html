@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PeekCarousel - 빌드 라이브러리 예제</title>
+
+  <!-- 빌드된 CSS 포함 -->
+  <link rel="stylesheet" href="../dist/peek-carousel.css">
+
+  <!-- 예제용 커스텀 CSS -->
+  <link rel="stylesheet" href="example.css">
+</head>
+<body>
+  <div class="wrapper">
+    <!-- GitHub 링크 -->
+    <a href="https://github.com/lledellebell/peek-carousel" class="github__link circle__button" target="_blank" rel="noopener noreferrer" aria-label="View source on GitHub" data-tooltip="View on GitHub">
+      <svg width="32" height="32" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+      </svg>
+      <span class="tooltip">View on GitHub</span>
+    </a>
+
+    <header class="intro__text">
+      <h1>PeekCarousel</h1>
+      <p>스와이프 또는 드래그로 이동하세요</p>
+    </header>
+
+    <!-- 컨트롤 패널 토글 버튼 -->
+    <div class="top__controls">
+      <button class="keyboard__toggle circle__button" aria-label="Toggle keyboard shortcuts panel" aria-expanded="false" data-tooltip="Keyboard Shortcuts">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h.01M12 12h.01M16 12h.01M7 16h10"/>
+        </svg>
+        <span class="tooltip">키보드 단축키</span>
+      </button>
+
+      <button class="mouse__toggle circle__button" aria-label="Toggle mouse and wheel panel" aria-expanded="false" data-tooltip="Mouse & Wheel">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2C8.5 2 6 4.5 6 8v8c0 3.5 2.5 6 6 6s6-2.5 6-6V8c0-3.5-2.5-6-6-6z"/>
+          <path d="M12 6v4"/>
+        </svg>
+        <span class="tooltip">마우스 & 휠</span>
+      </button>
+
+      <button class="controls__toggle circle__button" aria-label="Toggle settings panel" aria-expanded="false" data-tooltip="Settings">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+        <span class="tooltip">설정</span>
+      </button>
+    </div>
+
+    <!-- 키보드 단축키 패널 -->
+    <div class="keyboard__panel">
+      <div class="keyboard__header">
+        <h3>키보드 단축키</h3>
+      </div>
+      <div class="keyboard__shortcuts">
+        <div class="shortcut__item">
+          <kbd class="shortcut__key">←</kbd>
+          <span class="shortcut__description">이전 슬라이드</span>
+        </div>
+        <div class="shortcut__item">
+          <kbd class="shortcut__key">→</kbd>
+          <span class="shortcut__description">다음 슬라이드</span>
+        </div>
+        <div class="shortcut__item">
+          <kbd class="shortcut__key">Home</kbd>
+          <span class="shortcut__description">첫 번째 슬라이드</span>
+        </div>
+        <div class="shortcut__item">
+          <kbd class="shortcut__key">End</kbd>
+          <span class="shortcut__description">마지막 슬라이드</span>
+        </div>
+        <div class="shortcut__item">
+          <kbd class="shortcut__key shortcut__key--range">1 - 9</kbd>
+          <span class="shortcut__description">슬라이드 번호로 이동</span>
+        </div>
+        <div class="shortcut__item">
+          <kbd class="shortcut__key">Space</kbd>
+          <span class="shortcut__description">자동 회전 토글</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 마우스 & 휠 패널 -->
+    <div class="mouse__panel">
+      <div class="mouse__header">
+        <h3>마우스 & 휠</h3>
+      </div>
+      <div class="mouse__controls">
+        <div class="control__item">
+          <div class="control__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2C8.5 2 6 4.5 6 8v8c0 3.5 2.5 6 6 6s6-2.5 6-6V8c0-3.5-2.5-6-6-6z"/>
+              <path d="M12 6v4"/>
+            </svg>
+          </div>
+          <div class="control__content">
+            <span class="control__title">마우스 휠 (수직)</span>
+            <span class="control__description">위/아래 스크롤로 슬라이드 이동</span>
+          </div>
+        </div>
+        <div class="control__item">
+          <div class="control__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="5" width="18" height="14" rx="2"/>
+              <path d="M8 12h8M12 8v8"/>
+            </svg>
+          </div>
+          <div class="control__content">
+            <span class="control__title">트랙패드 (수직)</span>
+            <span class="control__description">두 손가락 상하 스크롤</span>
+          </div>
+        </div>
+        <div class="control__item">
+          <div class="control__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="5" width="18" height="14" rx="2"/>
+              <path d="M8 12h8"/>
+            </svg>
+          </div>
+          <div class="control__content">
+            <span class="control__title">트랙패드 (수평)</span>
+            <span class="control__description">두 손가락 좌우 스와이프</span>
+          </div>
+        </div>
+        <div class="control__item">
+          <div class="control__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+          </div>
+          <div class="control__content">
+            <span class="control__title">마우스 드래그</span>
+            <span class="control__description">클릭 후 좌우로 드래그하여 이동</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 컨트롤 패널 -->
+    <div class="controls__panel">
+      <div class="controls__header">
+        <h3>설정</h3>
+      </div>
+
+      <!-- 레이아웃 모드 버튼 그룹 -->
+      <div class="control__section">
+        <label class="section__label">레이아웃 모드</label>
+        <div class="button__group" role="group" aria-label="Layout mode selection">
+          <button class="button__group-item button__group-item--active" data-layout="stack" aria-pressed="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/>
+              <rect x="14" y="3" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/>
+            </svg>
+            스택
+          </button>
+          <button class="button__group-item" data-layout="radial" aria-pressed="false">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <circle cx="12" cy="12" r="6"/>
+              <circle cx="12" cy="12" r="2"/>
+            </svg>
+            원형
+          </button>
+          <button class="button__group-item" data-layout="classic" aria-pressed="false">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="10" rx="2"/>
+              <line x1="7" y1="12" x2="17" y2="12"/>
+            </svg>
+            클래식
+          </button>
+        </div>
+      </div>
+
+      <!-- UI 토글 스위치 -->
+      <div class="control__section">
+        <label class="section__label">UI 요소</label>
+
+        <div class="switch__group">
+          <label class="switch__item">
+            <span class="switch__label">네비게이션</span>
+            <input type="checkbox" id="showNavigation" checked>
+            <span class="switch__slider"></span>
+          </label>
+
+          <label class="switch__item">
+            <span class="switch__label">카운터</span>
+            <input type="checkbox" id="showCounter" checked>
+            <span class="switch__slider"></span>
+          </label>
+
+          <label class="switch__item">
+            <span class="switch__label">인디케이터</span>
+            <input type="checkbox" id="showIndicators" checked>
+            <span class="switch__slider"></span>
+          </label>
+
+          <label class="switch__item">
+            <span class="switch__label">자동 회전</span>
+            <input type="checkbox" id="showAutoRotateButton" checked>
+            <span class="switch__slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="peek-carousel" id="myCarousel">
+      <div class="peek-carousel__track">
+        <div class="peek-carousel__item">
+          <figure class="peek-carousel__figure">
+            <img class="peek-carousel__image" src="https://picsum.photos/id/1015/650/490.webp" alt="Image 1" width="650" height="490" />
+            <figcaption class="peek-carousel__caption">
+              <span class="peek-carousel__caption-title">Image 1</span>
+              <span class="peek-carousel__caption-subtitle">Beautiful landscape</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="peek-carousel__item">
+          <figure class="peek-carousel__figure">
+            <img class="peek-carousel__image" src="https://picsum.photos/id/1018/650/490.webp" alt="Image 2" width="650" height="490" />
+            <figcaption class="peek-carousel__caption">
+              <span class="peek-carousel__caption-title">Image 2</span>
+              <span class="peek-carousel__caption-subtitle">Mountain view</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="peek-carousel__item">
+          <figure class="peek-carousel__figure">
+            <img class="peek-carousel__image" src="https://picsum.photos/id/1019/650/490.webp" alt="Image 3" width="650" height="490" />
+            <figcaption class="peek-carousel__caption">
+              <span class="peek-carousel__caption-title">Image 3</span>
+              <span class="peek-carousel__caption-subtitle">Ocean waves</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="peek-carousel__item">
+          <figure class="peek-carousel__figure">
+            <img class="peek-carousel__image" src="https://picsum.photos/id/1025/650/490.webp" alt="Image 4" width="650" height="490" />
+            <figcaption class="peek-carousel__caption">
+              <span class="peek-carousel__caption-title">Image 4</span>
+              <span class="peek-carousel__caption-subtitle">Forest path</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="peek-carousel__item">
+          <figure class="peek-carousel__figure">
+            <img class="peek-carousel__image" src="https://picsum.photos/id/1035/650/490.webp" alt="Image 5" width="650" height="490" />
+            <figcaption class="peek-carousel__caption">
+              <span class="peek-carousel__caption-title">Image 5</span>
+              <span class="peek-carousel__caption-subtitle">City lights</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <!-- 네비게이션 버튼, 인디케이터, 자동 회전 버튼, 카운터는 PeekCarousel에 의해 자동 생성됩니다 -->
+    </div>
+  </div>
+
+  <!-- 빌드된 JavaScript (UMD 번들) 포함 -->
+  <script src="../dist/peek-carousel.js"></script>
+
+  <!-- 예제용 커스텀 JavaScript -->
+  <script src="example.js"></script>
+</body>
+</html>

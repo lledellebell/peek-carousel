@@ -1,0 +1,154 @@
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+@use 'sass:map';
+
+$controls-animation: (
+  duration: 0.6s,
+  easing: cubic-bezier(0.4, 0, 0.2, 1),
+  delay: 0.6s,
+  translate-y: 20px
+);
+
+$indicator-dimensions: (
+  default: (
+    width: $indicator-size,
+    height: $indicator-size
+  ),
+  active: (
+    width: $indicator-active-width,
+    height: $indicator-active-height
+  )
+);
+
+@mixin indicator-dot($width, $height, $bg-color) {
+  content: '';
+  width: $width;
+  height: $height;
+  border-radius: if($width == $height, $radius-circle, $radius-full);
+  background: $bg-color;
+  transition: all $transition-base;
+}
+
+.peek-carousel__controls {
+  position: absolute;
+  inset: auto auto 3% 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  z-index: $z-index-controls;
+  opacity: 0;
+  animation: fadeInUpControls
+    map.get($controls-animation, duration)
+    map.get($controls-animation, easing)
+    forwards;
+  animation-delay: map.get($controls-animation, delay);
+}
+
+.peek-carousel__indicators {
+  display: flex;
+  align-items: center;
+  gap: $indicator-gap;
+  padding: 0.625rem $spacing-lg;
+  border-radius: $radius-full;
+  @include glassmorphism($color-black-50, $carousel-blur, $color-white-15);
+}
+
+.peek-carousel__indicator {
+  $default: map.get($indicator-dimensions, default);
+  $active: map.get($indicator-dimensions, active);
+
+  width: map.get($default, width);
+  height: map.get($default, height);
+  border-radius: $radius-circle;
+  background: transparent;
+  cursor: pointer;
+  transition: all $transition-base;
+  border: none;
+  padding: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::before {
+    @include indicator-dot(
+      map.get($default, width),
+      map.get($default, height),
+      $color-white-40
+    );
+  }
+
+  &:hover::before {
+    background: $color-white-60;
+    transform: scale(1.2);
+  }
+
+  &--active {
+    width: map.get($active, width);
+    overflow: hidden;
+    border-radius: $radius-full;
+
+    &::before {
+      @include indicator-dot(
+        map.get($active, width),
+        map.get($active, height),
+        $color-white-30
+      );
+    }
+
+    &::after {
+      @include indicator-dot(
+        map.get($active, width),
+        map.get($active, height),
+        $color-white-95
+      );
+      position: absolute;
+      inset: 50% auto auto 0;
+      transform: translateY(-50%);
+      box-shadow: $shadow-glow;
+    }
+
+    &:hover {
+      &::before {
+        background: $color-white-40;
+      }
+
+      &::after {
+        background: $color-white;
+        box-shadow: $shadow-glow-strong;
+      }
+    }
+
+    &.peek-carousel__indicator--progress::after {
+      width: 0;
+      animation: indicatorProgress linear forwards;
+      animation-duration: var(--progress-duration, 2500ms);
+    }
+  }
+
+  &--completed::after {
+    width: map.get($active, width) !important;
+    animation: none;
+  }
+}
+
+@keyframes fadeInUpControls {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(map.get($controls-animation, translate-y));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes indicatorProgress {
+  from {
+    width: 0;
+  }
+  to {
+    width: map.get(map.get($indicator-dimensions, active), width);
+  }
+}
