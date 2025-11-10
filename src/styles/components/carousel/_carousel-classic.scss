@@ -1,0 +1,76 @@
+@use '../../base/variables' as *;
+@use 'carousel-variables' as *;
+@use 'carousel-mixins' as *;
+@use 'sass:list';
+
+.peek-carousel--classic {
+  overflow: hidden;
+
+  .peek-carousel__track {
+    transition: transform $transition-smooth;
+    transform: translateX(calc(var(--track-offset, 0px) + var(--drag-offset)));
+
+    &:active {
+      transition: transform $drag-transition-duration;
+    }
+  }
+
+  .peek-carousel__item {
+    position: absolute;
+    left: var(--item-x, 50%);
+    transform: translate(-50%, -50%) scale(var(--item-scale, 1));
+    opacity: 0;
+    visibility: hidden;
+    cursor: default;
+    z-index: $z-index-base;
+    @include classic-item-transition;
+
+    &--active {
+      opacity: 1;
+      visibility: visible;
+      z-index: $z-index-active;
+      cursor: grab;
+      @include classic-item-transition(0s);
+
+      &:active {
+        cursor: grabbing;
+      }
+
+      .peek-carousel__image {
+        box-shadow: list.join(
+          (0 40px 100px $color-primary-60,
+           0 0 40px $color-primary-40,
+           0 0 80px $color-secondary),
+          (),
+          $separator: comma
+        );
+        filter: brightness($classic-active-brightness) saturate($classic-active-saturation);
+      }
+    }
+
+    &--prev,
+    &--next {
+      opacity: $classic-peek-opacity;
+      visibility: visible;
+      z-index: $z-index-item;
+      cursor: pointer;
+      @include classic-item-transition(0s);
+
+      .peek-carousel__image {
+        filter: brightness($classic-peek-brightness) saturate($classic-peek-saturation);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+      }
+
+      &:hover .peek-carousel__image {
+        filter: brightness($classic-peek-hover-brightness) saturate($classic-peek-hover-saturation) !important;
+        box-shadow: 0 30px 70px $color-primary-30 !important;
+        transition: all $transition-base;
+      }
+    }
+
+    &:not(&--active):not(&--prev):not(&--next) .peek-carousel__image {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      filter: brightness($classic-hidden-brightness) saturate($classic-hidden-saturation);
+    }
+  }
+}

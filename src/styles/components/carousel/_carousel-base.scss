@@ -1,0 +1,99 @@
+@use '../../base/variables' as *;
+@use 'carousel-variables' as *;
+@use 'sass:list';
+
+.peek-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  user-select: none;
+  cursor: grab;
+
+  opacity: 0;
+  transform: translateY($initial-offset);
+  animation: fadeInUp $animation-duration cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: $animation-delay;
+
+  --drag-offset: 0px;
+  --drag-rotation: 0deg;
+  --drag-rotation-y: 0deg;
+
+  &__track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    touch-action: pan-y;
+    transform-style: preserve-3d;
+  }
+
+  &__item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: $carousel-item-width;
+    aspect-ratio: $carousel-item-ratio;
+    transform-origin: center;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    transform: translate(-50%, -50%) scale($item-default-scale);
+    z-index: $z-index-base;
+
+    --item-x: 0%;
+    --item-scale: #{$item-default-scale};
+    --item-offset-x: 0px;
+    --item-angle: 0deg;
+    --item-radius: #{$item-default-radius};
+
+    &--active {
+      .peek-carousel__caption {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: $breakpoint-mobile) {
+      width: clamp($item-mobile-min-width, 80vw, $item-mobile-max-width);
+      --item-radius: #{$item-mobile-radius};
+    }
+  }
+
+  &__figure {
+    margin: 0;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: $radius-xl;
+    box-shadow: list.join($shadow-lg, $shadow-md, $separator: comma);
+    transition:
+      filter $transition-slow,
+      box-shadow $transition-slow;
+    will-change: filter, box-shadow;
+  }
+
+  &__caption {
+    position: absolute;
+    inset: auto 0 0;
+    color: white;
+    text-align: center;
+    padding: $spacing-2xl;
+    background: linear-gradient(to top, $color-black-80, transparent);
+    border-radius: 0 0 $radius-xl $radius-xl;
+    opacity: 0;
+    transition: opacity $transition-base;
+    pointer-events: none;
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

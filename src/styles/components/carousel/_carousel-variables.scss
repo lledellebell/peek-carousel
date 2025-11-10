@@ -1,0 +1,118 @@
+@use '../../base/variables' as *;
+@use 'sass:map';
+
+$breakpoint-mobile: 768px;
+$drag-transition-duration: 0.05s;
+$perspective-distance: 1200px;
+
+$carousel-animation: (
+  duration: 0.8s,
+  delay: 0.1s,
+  initial-offset: 30px
+);
+
+// 아이템 크기 설정
+$item-config: (
+  default: (
+    scale: 0.8,
+    radius: 400px
+  ),
+  mobile: (
+    min-width: 280px,
+    max-width: 400px,
+    radius: 300px
+  )
+);
+
+// 하위 호환성 - 개별 변수
+$animation-duration: map.get($carousel-animation, duration);
+$animation-delay: map.get($carousel-animation, delay);
+$initial-offset: map.get($carousel-animation, initial-offset);
+
+$item-default-scale: map.get(map.get($item-config, default), scale);
+$item-default-radius: map.get(map.get($item-config, default), radius);
+$item-mobile-min-width: map.get(map.get($item-config, mobile), min-width);
+$item-mobile-max-width: map.get(map.get($item-config, mobile), max-width);
+$item-mobile-radius: map.get(map.get($item-config, mobile), radius);
+
+$stack-mode: (
+  inactive-opacity: 0.5,
+  normal-transition: 0.5s,
+  active: (
+    brightness: 1.2,
+    saturation: 1.1
+  ),
+  inactive: (
+    brightness: 0.7,
+    saturation: 0.85
+  ),
+  hover: (
+    brightness: 0.9,
+    saturation: 1
+  )
+);
+
+$stack-inactive-opacity: map.get($stack-mode, inactive-opacity);
+$stack-normal-transition: map.get($stack-mode, normal-transition);
+$stack-active-brightness: map.get(map.get($stack-mode, active), brightness);
+$stack-active-saturation: map.get(map.get($stack-mode, active), saturation);
+$stack-inactive-brightness: map.get(map.get($stack-mode, inactive), brightness);
+$stack-inactive-saturation: map.get(map.get($stack-mode, inactive), saturation);
+$stack-hover-brightness: map.get(map.get($stack-mode, hover), brightness);
+$stack-hover-saturation: map.get(map.get($stack-mode, hover), saturation);
+
+$radial-mode: (
+  visibility-delay: 0.5s,
+  peek-opacity: 0.3,
+  active: (
+    brightness: 1.2,
+    saturation: 1.1
+  ),
+  inactive: (
+    brightness: 0.7,
+    saturation: 0.85
+  ),
+  peek: (
+    brightness: 0.8,
+    saturation: 0.9
+  )
+);
+
+$radial-visibility-delay: map.get($radial-mode, visibility-delay);
+$radial-peek-opacity: map.get($radial-mode, peek-opacity);
+$radial-active-brightness: map.get(map.get($radial-mode, active), brightness);
+$radial-active-saturation: map.get(map.get($radial-mode, active), saturation);
+$radial-inactive-brightness: map.get(map.get($radial-mode, inactive), brightness);
+$radial-inactive-saturation: map.get(map.get($radial-mode, inactive), saturation);
+$radial-peek-brightness: map.get(map.get($radial-mode, peek), brightness);
+$radial-peek-saturation: map.get(map.get($radial-mode, peek), saturation);
+
+$classic-mode: (
+  peek-opacity: 0.6,
+  active: (
+    brightness: 1.15,
+    saturation: 1.1
+  ),
+  peek: (
+    brightness: 0.8,
+    saturation: 0.95
+  ),
+  peek-hover: (
+    brightness: 1,
+    saturation: 1.05
+  ),
+  hidden: (
+    brightness: 0.5,
+    saturation: 0.7
+  )
+);
+
+$classic-peek-opacity: map.get($classic-mode, peek-opacity);
+$classic-active-brightness: map.get(map.get($classic-mode, active), brightness);
+$classic-active-saturation: map.get(map.get($classic-mode, active), saturation);
+$classic-peek-brightness: map.get(map.get($classic-mode, peek), brightness);
+$classic-peek-saturation: map.get(map.get($classic-mode, peek), saturation);
+$classic-peek-hover-brightness: map.get(map.get($classic-mode, peek-hover), brightness);
+$classic-peek-hover-saturation: map.get(map.get($classic-mode, peek-hover), saturation);
+$classic-hidden-brightness: map.get(map.get($classic-mode, hidden), brightness);
+$classic-hidden-saturation: map.get(map.get($classic-mode, hidden), saturation);

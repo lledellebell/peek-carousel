@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+yarn.lock
+
+# Build
+dist/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+.env
+.env.local
+
+# Examples (only track minified versions)
+examples/example.css
+examples/example.js
+
+docs/

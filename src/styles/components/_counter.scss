@@ -1,0 +1,109 @@
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+@use 'sass:map';
+@use 'sass:color';
+
+$counter-config: (
+  default: (
+    top: 3%,
+    left: 3%,
+    padding: (0.5rem 1rem),
+    font-size: 0.875rem,
+    border-radius: 20px
+  ),
+  mobile: (
+    top: 2%,
+    left: 2%,
+    padding: (0.4rem 0.8rem),
+    font-size: 0.75rem
+  )
+);
+
+$counter-animation: (
+  duration: 0.6s,
+  easing: cubic-bezier(0.4, 0, 0.2, 1),
+  delay: 0.7s,
+  translate-y: -10px
+);
+
+$counter-styles: (
+  bg: color.change($color-black, $alpha: 0.5),
+  border: color.change(white, $alpha: 0.15),
+  blur: 10px,
+  color: white,
+  font-weight: 500,
+  z-index: 100
+);
+
+$counter-elements: (
+  separator: (
+    margin: (0 0.25rem),
+    opacity: 0.7
+  ),
+  current: (
+    font-weight: 600
+  ),
+  total: (
+    opacity: 0.8
+  )
+);
+
+
+@mixin counter-layout($config) {
+  position: absolute;
+  inset: map.get($config, top) auto auto map.get($config, left);
+  padding: map.get($config, padding);
+  font-size: map.get($config, font-size);
+}
+
+.peek-carousel__counter {
+  $default: map.get($counter-config, default);
+
+  @include counter-layout($default);
+  @include glassmorphism(
+    map.get($counter-styles, bg),
+    map.get($counter-styles, blur),
+    map.get($counter-styles, border)
+  );
+
+  z-index: map.get($counter-styles, z-index);
+  border-radius: map.get($default, border-radius);
+  color: map.get($counter-styles, color);
+  font-weight: map.get($counter-styles, font-weight);
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(map.get($counter-animation, translate-y));
+  animation: fadeInDown
+    map.get($counter-animation, duration)
+    map.get($counter-animation, easing)
+    forwards;
+  animation-delay: map.get($counter-animation, delay);
+
+  @media (max-width: 768px) {
+    $mobile: map.get($counter-config, mobile);
+    @include counter-layout($mobile);
+  }
+
+  &-separator {
+    $separator: map.get($counter-elements, separator);
+    margin: map.get($separator, margin);
+    opacity: map.get($separator, opacity);
+  }
+
+  &-current {
+    font-weight: map.get(map.get($counter-elements, current), font-weight);
+  }
+
+  &-total {
+    opacity: map.get(map.get($counter-elements, total), opacity);
+  }
+}
+
+@keyframes fadeInDown {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

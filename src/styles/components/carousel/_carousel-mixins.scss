@@ -1,0 +1,18 @@
+@use '../../base/variables' as *;
+
+@mixin base-item-transition($visibility-delay: 0s) {
+  transition:
+    transform $transition-smooth,
+    opacity $transition-smooth,
+    visibility 0s $visibility-delay,
+    z-index 0s;
+}
+
+@mixin classic-item-transition($visibility-delay: $transition-smooth) {
+  transition:
+    transform $transition-smooth,
+    opacity $transition-smooth,
+    left $transition-smooth,
+    visibility 0s $visibility-delay,
+    z-index 0s;
+}

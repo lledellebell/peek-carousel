@@ -1,0 +1,84 @@
+@use '../../base/variables' as *;
+@use 'carousel-variables' as *;
+@use 'sass:list';
+
+.peek-carousel--stack {
+  .peek-carousel__track {
+    transition: none;
+    transform: none;
+  }
+
+  .peek-carousel__item {
+    cursor: pointer;
+    opacity: $stack-inactive-opacity;
+    visibility: visible;
+    transition:
+      transform $drag-transition-duration,
+      opacity $drag-transition-duration,
+      z-index 0s;
+
+    &:not(.peek-carousel__item--dragging-left):not(.peek-carousel__item--dragging-right) {
+      transition:
+        transform $stack-normal-transition,
+        opacity $stack-normal-transition,
+        z-index 0s;
+    }
+
+    &--active {
+      opacity: 1;
+      z-index: $z-index-active;
+
+      .peek-carousel__image {
+        box-shadow: list.join(
+          (0 40px 100px $color-primary-60,
+           0 0 40px $color-primary-40,
+           0 0 80px $color-secondary),
+          (),
+          $separator: comma
+        );
+        filter: brightness($stack-active-brightness) saturate($stack-active-saturation);
+      }
+    }
+
+    &:not(&--active) {
+      .peek-carousel__image {
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        filter: brightness($stack-inactive-brightness) saturate($stack-inactive-saturation);
+      }
+
+      &:hover .peek-carousel__image {
+        filter: brightness($stack-hover-brightness) saturate($stack-hover-saturation) !important;
+        box-shadow: 0 30px 70px $color-primary-30 !important;
+        transition: all $transition-base;
+      }
+    }
+
+    &--center {
+      transform: translate(-50%, -50%)
+                 scale(1.15)
+                 translateX(var(--drag-offset))
+                 rotateZ(var(--drag-rotation));
+    }
+
+    &--prev {
+      transform: translate(calc(-50% - 45%), -50%)
+                 scale(0.85)
+                 translateX(calc(-15px + var(--drag-offset)))
+                 rotateZ(var(--drag-rotation));
+    }
+
+    &--next {
+      transform: translate(calc(-50% + 45%), -50%)
+                 scale(0.85)
+                 translateX(calc(15px + var(--drag-offset)))
+                 rotateZ(var(--drag-rotation));
+    }
+
+    &--hidden {
+      transform: translate(-50%, -50%)
+                 scale(0.7)
+                 translateX(var(--drag-offset))
+                 rotateZ(var(--drag-rotation));
+    }
+  }
+}
