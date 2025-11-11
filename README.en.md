@@ -1,9 +1,11 @@
 # PeekCarousel
 
-[![package version](https://badgen.net/badge/version/1.0.0/blue)](https://github.com/lledellebell/peek-carousel/packages)
+[![package version](https://badgen.net/badge/version/1.0.1/blue)](https://github.com/lledellebell/peek-carousel/packages)
 [![package name](https://badgen.net/badge/package/@lledellebell%2Fpeek-carousel/blue)](https://github.com/lledellebell/peek-carousel/packages)
 [![bundle size](https://badgen.net/badge/bundle%20size/155KB/green)](https://github.com/lledellebell/peek-carousel/packages)
 [![license](https://badgen.net/badge/license/MIT/blue)](https://opensource.org/licenses/MIT)
+[![downloads](https://badgen.net/github/assets-dl/lledellebell/peek-carousel)](https://github.com/lledellebell/peek-carousel/releases)
+[![visitors](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Flledellebell%2Fpeek-carousel&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=visitors&edge_flat=false)](https://hits.seeyoufarm.com)
 
 [![stars](https://badgen.net/github/stars/lledellebell/peek-carousel)](https://github.com/lledellebell/peek-carousel/stargazers)
 [![issues](https://badgen.net/github/open-issues/lledellebell/peek-carousel)](https://github.com/lledellebell/peek-carousel/issues)
