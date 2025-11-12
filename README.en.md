@@ -1,16 +1,15 @@
 # PeekCarousel
 
-[![package version](https://badgen.net/badge/version/1.0.1/blue)](https://github.com/lledellebell/peek-carousel/packages)
-[![package name](https://badgen.net/badge/package/@lledellebell%2Fpeek-carousel/blue)](https://github.com/lledellebell/peek-carousel/packages)
-[![bundle size](https://badgen.net/badge/bundle%20size/9.8KB%20gzipped/green)](https://github.com/lledellebell/peek-carousel/packages)
+[![npm version](https://badgen.net/npm/v/peek-carousel)](https://www.npmjs.com/package/peek-carousel)
+[![npm downloads](https://badgen.net/npm/dt/peek-carousel)](https://www.npmjs.com/package/peek-carousel)
+[![bundle size](https://badgen.net/bundlephobia/minzip/peek-carousel)](https://bundlephobia.com/package/peek-carousel)
 [![license](https://badgen.net/badge/license/MIT/blue)](https://opensource.org/licenses/MIT)
-[![downloads](https://badgen.net/github/assets-dl/lledellebell/peek-carousel)](https://github.com/lledellebell/peek-carousel/releases)
-[![visitors](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Flledellebell%2Fpeek-carousel&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=visitors&edge_flat=false)](https://hits.seeyoufarm.com)
 
 [![stars](https://badgen.net/github/stars/lledellebell/peek-carousel)](https://github.com/lledellebell/peek-carousel/stargazers)
-[![issues](https://badgen.net/github/open-issues/lledellebell/peek-carousel)](https://github.com/lledellebell/peek-carousel/issues)
 [![forks](https://badgen.net/github/forks/lledellebell/peek-carousel)](https://github.com/lledellebell/peek-carousel/network/members)
+[![issues](https://badgen.net/github/open-issues/lledellebell/peek-carousel)](https://github.com/lledellebell/peek-carousel/issues)
 [![last commit](https://badgen.net/github/last-commit/lledellebell/peek-carousel)](https://github.com/lledellebell/peek-carousel/commits)
+[![Visitors](https://vbr.nathanchung.dev/badge?page_id=lledellebell.peek-carousel&color=50e3c2&style=flat&logo=github)](https://github.com/lledellebell/peek-carousel)
 
 [![JavaScript](https://badgen.net/badge/JavaScript/ES6+/yellow)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![SCSS](https://badgen.net/badge/SCSS/Sass/pink)](https://sass-lang.com/)
@@ -33,12 +32,41 @@ A modular carousel library inspired by the swipe interaction on the iPhone 17 Pr
 
 ## Installation
 
+### NPM
+
 ```bash
-npm install @lledellebell/peek-carousel
+npm install peek-carousel
 ```
 
 ```javascript
-import PeekCarousel from '@lledellebell/peek-carousel';
+import PeekCarousel from 'peek-carousel';
+```
+
+### CDN
+
+#### jsDelivr
+
+```html
+<!-- CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/peek-carousel@1.0.2/dist/peek-carousel.css">
+
+<!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/peek-carousel@1.0.2/dist/peek-carousel.min.js"></script>
+
+<script>
+  // PeekCarousel is available as a global variable
+  const carousel = new PeekCarousel('#myCarousel');
+</script>
+```
+
+#### unpkg
+
+```html
+<!-- CSS -->
+<link rel="stylesheet" href="https://unpkg.com/peek-carousel@1.0.2/dist/peek-carousel.css">
+
+<!-- JavaScript -->
+<script src="https://unpkg.com/peek-carousel@1.0.2/dist/peek-carousel.min.js"></script>
 ```
 
 ## Quick Start
