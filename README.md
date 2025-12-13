@@ -15,7 +15,7 @@
 [![SCSS](https://badgen.net/badge/SCSS/Sass/pink)](https://sass-lang.com/)
 [![dependencies](https://badgen.net/badge/dependencies/0/green)](https://github.com/lledellebell/peek-carousel/packages)
 
-iPhone 17 Pro 제품 소개 페이지의 스와이프 인터랙션에서 영감을 받은 모듈형 캐러셀 라이브러리. 현재 활성 아이템 양옆으로 다음/이전 아이템이 살짝 보이는 'Peek 효과'를 제공하여 직관적인 내비게이션을 지원합니다. 세 가지 레이아웃 모드(Stack/Card, Radial Rotation, Classic Slide)를 지원하며, 부드러운 전환 효과, 터치/드래그 지원, 완전한 접근성을 제공합니다.
+[iPhone 17 Pro 제품 소개 페이지의 스와이프 인터랙션](https://www.apple.com/kr/iphone-17-pro/?afid=p240%7Cgo~cmp-22996585116~adg-182068496061~ad-773268159994_kwd-823434182572~dev-c~ext-~prd-~mca-~nt-search&cid=wwa-kr-kwgo-iphone-noncore_iphone17pro-iphone17pro-iphone17pro_hero_avail_091925-2025-iPhone17Pro-g-iPhone17Pro-iphone+17+pro)에서 영감을 받은 모듈형 캐러셀 라이브러리. 현재 활성 아이템 양옆으로 다음/이전 아이템이 살짝 보이는 'Peek 효과'를 제공하여 직관적인 내비게이션을 지원합니다. 세 가지 레이아웃 모드(Stack/Card, Radial Rotation, Classic Slide)를 지원하며, 부드러운 전환 효과, 터치/드래그 지원, 완전한 접근성을 제공합니다.
 
 ![PeekCarousel Demo](./public/assets/share_image.png)
 
