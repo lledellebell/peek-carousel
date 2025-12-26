@@ -44,7 +44,10 @@
     "watch": "npm-run-all --parallel watch:js watch:css",
     "dev": "npm run watch",
     "prepublishOnly": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage"
   },
   "repository": {
     "type": "git",
@@ -79,14 +82,19 @@
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
+    "@testing-library/dom": "^10.4.1",
+    "@vitest/coverage-v8": "^4.0.16",
     "autoprefixer": "^10.4.16",
     "cssnano": "^6.0.1",
+    "happy-dom": "^20.0.11",
+    "jsdom": "^27.3.0",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.31",
     "postcss-cli": "^11.0.0",
     "rollup": "^4.1.4",
     "rollup-plugin-postcss": "^4.0.2",
     "sass": "^1.69.5",
-    "terser": "^5.44.1"
+    "terser": "^5.44.1",
+    "vitest": "^4.0.16"
   }
 }
