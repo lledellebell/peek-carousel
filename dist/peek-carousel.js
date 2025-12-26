@@ -670,10 +670,12 @@
     velocityThreshold: 0.5
   });
   const RESIZE_DEBOUNCE = 100;
+  let handlerId = 0;
   class EventHandler {
     constructor(carousel) {
       this.carousel = carousel;
       this.boundHandlers = new Map();
+      this.resizeTimer = null;
       this.touch = {
         startX: 0,
         endX: 0
@@ -967,18 +969,19 @@
       }
     }
     initResize() {
-      let resizeTimer;
       const handler = () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-          this.carousel.animator.updateCarousel();
+        clearTimeout(this.resizeTimer);
+        this.resizeTimer = setTimeout(() => {
+          if (this.carousel) {
+            this.carousel.animator.updateCarousel();
+          }
         }, RESIZE_DEBOUNCE);
       };
       this.addHandler(window, 'resize', handler);
     }
     addHandler(element, event, handler, options) {
       element.addEventListener(event, handler, options);
-      const key = `${event}-${Date.now()}-${Math.random()}`;
+      const key = `${event}-${++handlerId}`;
       this.boundHandlers.set(key, {
         element,
         event,
@@ -991,6 +994,10 @@
         clearTimeout(this.wheel.scrollTimeout);
         this.wheel.scrollTimeout = null;
       }
+      if (this.resizeTimer) {
+        clearTimeout(this.resizeTimer);
+        this.resizeTimer = null;
+      }
       for (const {
         element,
         event,
@@ -1000,6 +1007,10 @@
         element.removeEventListener(event, handler, options);
       }
       this.boundHandlers.clear();
+      this.drag.active = false;
+      this.drag.velocity = 0;
+      this.wheel.isScrolling = false;
+      this.wheel.accumulatedDelta = 0;
       this.carousel = null;
     }
   }
