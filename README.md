@@ -4,6 +4,7 @@
 [![npm downloads](https://badgen.net/npm/dt/peek-carousel)](https://www.npmjs.com/package/peek-carousel)
 [![bundle size](https://badgen.net/bundlephobia/minzip/peek-carousel)](https://bundlephobia.com/package/peek-carousel)
 [![license](https://badgen.net/badge/license/MIT/blue)](https://opensource.org/licenses/MIT)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/lledellebell/peek-carousel)
 
 [![stars](https://badgen.net/github/stars/lledellebell/peek-carousel)](https://github.com/lledellebell/peek-carousel/stargazers)
 [![forks](https://badgen.net/github/forks/lledellebell/peek-carousel)](https://github.com/lledellebell/peek-carousel/network/members)
