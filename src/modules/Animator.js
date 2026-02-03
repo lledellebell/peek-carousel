@@ -35,6 +35,7 @@ export class Animator {
     this.carousel = carousel;
     this.momentumAnimation = null;
     this.isAnimating = false;
+    this.previousIndex = null;
   }
 
   normalizeAngleDiff(diff) {
@@ -72,7 +73,6 @@ export class Animator {
       return;
     }
 
-    // [개발참고] 최단 경로 계산: -180 ~ 180 범위로 정규화
     const currentAngle = parseFloat(currentRotation);
     const diff = this.normalizeAngleDiff(targetAngle - currentAngle);
     const finalAngle = currentAngle + diff;
@@ -157,13 +157,32 @@ export class Animator {
     return baseSpacing + additionalSpacing;
   }
 
-  getClassicItemPosition(itemIndex, currentIndex, itemSpacing) {
+  // ==========================================
+  // Classic Mode - Seamless Infinite Scroll
+  // ==========================================
+
+  getWrapInfo(prevIndex, currentIndex) {
+    if (prevIndex === null) return { isWrap: false, direction: 0 };
+
+    const total = this.carousel.totalItems;
+    const isForwardWrap = prevIndex === total - 1 && currentIndex === 0;
+    const isBackwardWrap = prevIndex === 0 && currentIndex === total - 1;
+
+    if (isForwardWrap) return { isWrap: true, direction: 1 };
+    if (isBackwardWrap) return { isWrap: true, direction: -1 };
+
+    return { isWrap: false, direction: currentIndex > prevIndex ? 1 : -1 };
+  }
+
+  getClassicItemPosition(itemIndex, currentIndex, itemSpacing, wrapDirection = 0) {
     const { prev, next } = this.getAdjacentIndices(currentIndex);
+    const total = this.carousel.totalItems;
 
     if (itemIndex === currentIndex) {
       return {
         x: CLASSIC_POSITIONS.center.x,
         scale: CLASSIC_POSITIONS.center.scale,
+        isCenter: true,
       };
     }
 
@@ -171,6 +190,7 @@ export class Animator {
       return {
         x: CLASSIC_POSITIONS.center.x - itemSpacing,
         scale: CLASSIC_POSITIONS.peek.scale,
+        isPrev: true,
       };
     }
 
@@ -178,15 +198,21 @@ export class Animator {
       return {
         x: CLASSIC_POSITIONS.center.x + itemSpacing,
         scale: CLASSIC_POSITIONS.peek.scale,
+        isNext: true,
       };
     }
 
-    const distanceFromCurrent = itemIndex - currentIndex;
+    // For other items, calculate based on circular distance
+    const forwardDist = (itemIndex - currentIndex + total) % total;
+    const backwardDist = (currentIndex - itemIndex + total) % total;
+    const isOnRight = forwardDist < backwardDist;
+
     return {
-      x: distanceFromCurrent < 0
-        ? CLASSIC_POSITIONS.center.x - itemSpacing * 2
-        : CLASSIC_POSITIONS.center.x + itemSpacing * 2,
+      x: isOnRight
+        ? CLASSIC_POSITIONS.center.x + itemSpacing * 2
+        : CLASSIC_POSITIONS.center.x - itemSpacing * 2,
       scale: CLASSIC_POSITIONS.hidden.scale,
+      isHidden: true,
     };
   }
 
@@ -194,19 +220,78 @@ export class Animator {
     const { prev, next } = this.getAdjacentIndices(currentIndex);
     const containerWidth = this.carousel.container.offsetWidth;
     const itemSpacing = this.calculateClassicSpacing(containerWidth);
+    const { isWrap, direction } = this.getWrapInfo(this.previousIndex, currentIndex);
 
-    for (let i = 0; i < this.carousel.items.length; i++) {
-      const item = this.carousel.items[i];
-      const { x, scale } = this.getClassicItemPosition(i, currentIndex, itemSpacing);
+    const items = this.carousel.items;
+
+    // Get previous prev/next for transition handling
+    const prevAdj = this.previousIndex !== null
+      ? this.getAdjacentIndices(this.previousIndex)
+      : { prev: null, next: null };
+
+    // For wrapping, only disable transitions on items that would cross the screen
+    if (isWrap) {
+      // Items that should animate: current, prev, next, previousIndex, and previous prev/next
+      const animatingItems = new Set([
+        currentIndex,
+        prev,
+        next,
+        this.previousIndex,
+        prevAdj.prev,
+        prevAdj.next,
+      ].filter(i => i !== null));
+
+      for (let i = 0; i < items.length; i++) {
+        if (!animatingItems.has(i)) {
+          items[i].style.transition = 'none';
+        }
+      }
+      // Force reflow
+      this.carousel.container.offsetHeight;
+    }
+
+    // Update all items to their final positions
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      const pos = this.getClassicItemPosition(i, currentIndex, itemSpacing);
 
       this.setCSSVariables(item, {
-        '--item-x': `${this.round(x, 2)}%`,
-        '--item-scale': String(scale),
+        '--item-x': `${this.round(pos.x, 2)}%`,
+        '--item-scale': String(pos.scale),
+      });
+
+      // Update visibility and opacity
+      if (pos.isCenter) {
+        item.style.opacity = '1';
+        item.style.visibility = 'visible';
+        item.style.zIndex = '100';
+      } else if (pos.isPrev || pos.isNext) {
+        item.style.opacity = '0.6';
+        item.style.visibility = 'visible';
+        item.style.zIndex = '50';
+      } else {
+        item.style.opacity = '0';
+        item.style.visibility = 'hidden';
+        item.style.zIndex = '0';
+      }
+    }
+
+    // Re-enable transitions
+    if (isWrap) {
+      requestAnimationFrame(() => {
+        for (let i = 0; i < items.length; i++) {
+          items[i].style.transition = '';
+        }
       });
     }
 
+    this.previousIndex = currentIndex;
     this.carousel.ui.setPeekItems(prev, next);
   }
+
+  // ==========================================
+  // Momentum
+  // ==========================================
 
   startMomentum(velocity) {
     this.stopMomentum();
