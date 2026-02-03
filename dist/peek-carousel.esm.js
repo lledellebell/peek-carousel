@@ -4,338 +4,245 @@
  * @license MIT
  * @author lledellebell
  */
-const LAYOUT_MODES = Object.freeze({
-  STACK: 'stack',
-  RADIAL: 'radial',
-  CLASSIC: 'classic'
-});
-const DEFAULT_OPTIONS = Object.freeze({
+const M = Object.freeze({
+  STACK: "stack",
+  RADIAL: "radial",
+  CLASSIC: "classic"
+}), P = Object.freeze({
   startIndex: 1,
-  layoutMode: LAYOUT_MODES.STACK,
-  autoRotate: false,
+  layoutMode: M.STACK,
+  autoRotate: !1,
   autoRotateInterval: 2500,
   preloadRange: 2,
   swipeThreshold: 50,
   dragThreshold: 80,
-  enableKeyboard: true,
-  enableWheel: true,
-  enableTouch: true,
-  enableMouse: true,
-  showNavigation: true,
-  showCounter: true,
-  showIndicators: true,
-  showAutoRotateButton: true
+  enableKeyboard: !0,
+  enableWheel: !0,
+  enableTouch: !0,
+  enableMouse: !0,
+  showNavigation: !0,
+  showCounter: !0,
+  showIndicators: !0,
+  showAutoRotateButton: !0
 });
-function validateOptions(options) {
-  const validated = {
-    ...DEFAULT_OPTIONS,
-    ...options
-  };
-  if (validated.startIndex < 0) {
-    console.warn('PeekCarousel: startIndex는 0 이상이어야 합니다. 기본값 1 사용');
-    validated.startIndex = 1;
-  }
-  if (!Object.values(LAYOUT_MODES).includes(validated.layoutMode)) {
-    console.warn(`PeekCarousel: 유효하지 않은 layoutMode "${validated.layoutMode}". 기본값 "stack" 사용`);
-    validated.layoutMode = LAYOUT_MODES.STACK;
-  }
-  if (validated.autoRotateInterval < 100) {
-    console.warn('PeekCarousel: autoRotateInterval은 100ms 이상이어야 합니다. 기본값 2500 사용');
-    validated.autoRotateInterval = 2500;
-  }
-  if (validated.preloadRange < 0) {
-    console.warn('PeekCarousel: preloadRange는 0 이상이어야 합니다. 기본값 2 사용');
-    validated.preloadRange = 2;
-  }
-  return validated;
+function L(a) {
+  const t = { ...P, ...a };
+  return t.startIndex < 0 && (console.warn("PeekCarousel: startIndex는 0 이상이어야 합니다. 기본값 1 사용"), t.startIndex = 1), Object.values(M).includes(t.layoutMode) || (console.warn(`PeekCarousel: 유효하지 않은 layoutMode "${t.layoutMode}". 기본값 "stack" 사용`), t.layoutMode = M.STACK), t.autoRotateInterval < 100 && (console.warn("PeekCarousel: autoRotateInterval은 100ms 이상이어야 합니다. 기본값 2500 사용"), t.autoRotateInterval = 2500), t.preloadRange < 0 && (console.warn("PeekCarousel: preloadRange는 0 이상이어야 합니다. 기본값 2 사용"), t.preloadRange = 2), t;
 }
-
-const CLASS_NAMES = Object.freeze({
-  carousel: 'peek-carousel',
-  track: 'peek-carousel__track',
-  item: 'peek-carousel__item',
-  itemActive: 'peek-carousel__item--active',
-  itemPrev: 'peek-carousel__item--prev',
-  itemNext: 'peek-carousel__item--next',
-  itemCenter: 'peek-carousel__item--center',
-  itemHidden: 'peek-carousel__item--hidden',
-  itemDraggingLeft: 'peek-carousel__item--dragging-left',
-  itemDraggingRight: 'peek-carousel__item--dragging-right',
-  figure: 'peek-carousel__figure',
-  image: 'peek-carousel__image',
-  caption: 'peek-carousel__caption',
-  nav: 'peek-carousel__nav',
-  navBtn: 'nav-btn',
-  btn: 'peek-carousel__btn',
-  prevBtn: 'prev-btn',
-  nextBtn: 'next-btn',
-  autoRotateBtn: 'auto-rotate-btn',
-  btnAutoRotate: 'peek-carousel__btn--auto-rotate',
-  btnActive: 'peek-carousel__btn--active',
-  controls: 'peek-carousel__controls',
-  indicators: 'peek-carousel__indicators',
-  indicator: 'indicator',
-  indicatorPeek: 'peek-carousel__indicator',
-  indicatorActive: 'peek-carousel__indicator--active',
-  indicatorProgress: 'peek-carousel__indicator--progress',
-  indicatorCompleted: 'peek-carousel__indicator--completed',
-  counter: 'peek-carousel__counter',
-  counterCurrent: 'peek-carousel__counter-current',
-  counterSeparator: 'peek-carousel__counter-separator',
-  counterTotal: 'peek-carousel__counter-total',
-  playIcon: 'play-icon',
-  pauseIcon: 'pause-icon'
-});
-const SELECTORS = Object.freeze({
-  carousel: '.peek-carousel__track',
-  item: '.peek-carousel__item',
-  indicator: '.indicator',
-  prevBtn: '.prev-btn',
-  nextBtn: '.next-btn',
-  autoRotateBtn: '.auto-rotate-btn',
-  playIcon: '.play-icon',
-  pauseIcon: '.pause-icon',
-  image: 'img'
-});
-const ARIA = Object.freeze({
-  current: 'aria-current',
-  selected: 'aria-selected',
-  pressed: 'aria-pressed',
-  label: 'aria-label',
-  tabindex: 'tabindex'
-});
-const BREAKPOINTS = Object.freeze({
-  mobile: 768 // [개발참고] px
-});
-const DURATIONS = Object.freeze({
+const r = Object.freeze({
+  carousel: "peek-carousel",
+  track: "peek-carousel__track",
+  item: "peek-carousel__item",
+  itemActive: "peek-carousel__item--active",
+  itemPrev: "peek-carousel__item--prev",
+  itemNext: "peek-carousel__item--next",
+  itemCenter: "peek-carousel__item--center",
+  itemHidden: "peek-carousel__item--hidden",
+  itemDraggingLeft: "peek-carousel__item--dragging-left",
+  itemDraggingRight: "peek-carousel__item--dragging-right",
+  figure: "peek-carousel__figure",
+  image: "peek-carousel__image",
+  caption: "peek-carousel__caption",
+  nav: "peek-carousel__nav",
+  navBtn: "nav-btn",
+  btn: "peek-carousel__btn",
+  prevBtn: "prev-btn",
+  nextBtn: "next-btn",
+  autoRotateBtn: "auto-rotate-btn",
+  btnAutoRotate: "peek-carousel__btn--auto-rotate",
+  btnActive: "peek-carousel__btn--active",
+  controls: "peek-carousel__controls",
+  indicators: "peek-carousel__indicators",
+  indicator: "indicator",
+  indicatorPeek: "peek-carousel__indicator",
+  indicatorActive: "peek-carousel__indicator--active",
+  indicatorProgress: "peek-carousel__indicator--progress",
+  indicatorCompleted: "peek-carousel__indicator--completed",
+  counter: "peek-carousel__counter",
+  counterCurrent: "peek-carousel__counter-current",
+  counterSeparator: "peek-carousel__counter-separator",
+  counterTotal: "peek-carousel__counter-total",
+  playIcon: "play-icon",
+  pauseIcon: "pause-icon"
+}), C = Object.freeze({
+  carousel: ".peek-carousel__track",
+  item: ".peek-carousel__item",
+  indicator: ".indicator",
+  prevBtn: ".prev-btn",
+  nextBtn: ".next-btn",
+  autoRotateBtn: ".auto-rotate-btn",
+  playIcon: ".play-icon",
+  pauseIcon: ".pause-icon",
+  image: "img"
+}), g = Object.freeze({
+  current: "aria-current",
+  selected: "aria-selected",
+  pressed: "aria-pressed",
+  label: "aria-label",
+  tabindex: "tabindex"
+}), H = Object.freeze({
+  mobile: 768
+  // [개발참고] px
+}), E = Object.freeze({
   transition: 500,
   // [개발참고] ms
-  progressReset: 10 // [개발참고] ms
+  progressReset: 10
+  // [개발참고] ms
+}), b = Object.freeze({
+  arrowLeft: "ArrowLeft",
+  arrowRight: "ArrowRight",
+  home: "Home",
+  end: "End",
+  space: " "
 });
-const KEYS = Object.freeze({
-  arrowLeft: 'ArrowLeft',
-  arrowRight: 'ArrowRight',
-  home: 'Home',
-  end: 'End',
-  space: ' '
-});
-
-function getElement(selector) {
-  if (typeof selector === 'string') {
-    return document.querySelector(selector);
-  }
-  return selector instanceof HTMLElement ? selector : null;
+function N(a) {
+  return typeof a == "string" ? document.querySelector(a) : a instanceof HTMLElement ? a : null;
 }
-function getElements(selector, parent = document) {
-  if (typeof selector !== 'string') return [];
-  return Array.from(parent.querySelectorAll(selector));
+function $(a, t = document) {
+  return typeof a != "string" ? [] : Array.from(t.querySelectorAll(a));
 }
-function addClass(element, ...classes) {
-  if (element instanceof HTMLElement && classes.length > 0) {
-    element.classList.add(...classes);
-  }
+function f(a, ...t) {
+  a instanceof HTMLElement && t.length > 0 && a.classList.add(...t);
 }
-function removeClass(element, ...classes) {
-  if (element instanceof HTMLElement && classes.length > 0) {
-    element.classList.remove(...classes);
-  }
+function v(a, ...t) {
+  a instanceof HTMLElement && t.length > 0 && a.classList.remove(...t);
 }
-function setCSSVar(element, property, value) {
-  if (element instanceof HTMLElement && property) {
-    element.style.setProperty(property, value);
-  }
+function B(a, t, e) {
+  a instanceof HTMLElement && t && a.style.setProperty(t, e);
 }
-function setAttribute(element, name, value) {
-  if (element instanceof HTMLElement && name) {
-    element.setAttribute(name, value);
-  }
+function I(a, t, e) {
+  a instanceof HTMLElement && t && a.setAttribute(t, e);
 }
-
-const loadingCache = new Map();
-function preloadImage(src) {
-  return new Promise((resolve, reject) => {
-    if (!src) {
-      reject(new Error('이미지 소스가 제공되지 않았습니다'));
+const A = /* @__PURE__ */ new Map();
+function O(a) {
+  return new Promise((t, e) => {
+    if (!a) {
+      e(new Error("이미지 소스가 제공되지 않았습니다"));
       return;
     }
-    if (loadingCache.has(src)) {
-      return loadingCache.get(src);
-    }
-    const img = new Image();
-    const promise = new Promise((res, rej) => {
-      img.onload = () => {
-        loadingCache.delete(src);
-        res(img);
-      };
-      img.onerror = () => {
-        loadingCache.delete(src);
-        rej(new Error(`이미지 로드 실패: ${src}`));
-      };
-      img.src = src;
+    if (A.has(a))
+      return A.get(a);
+    const s = new Image(), i = new Promise((o, n) => {
+      s.onload = () => {
+        A.delete(a), o(s);
+      }, s.onerror = () => {
+        A.delete(a), n(new Error(`이미지 로드 실패: ${a}`));
+      }, s.src = a;
     });
-    loadingCache.set(src, promise);
-    promise.then(resolve, reject);
+    A.set(a, i), i.then(t, e);
   });
 }
-function preloadImages(sources) {
-  if (!sources || sources.length === 0) {
+function z(a) {
+  if (!a || a.length === 0)
     return Promise.resolve([]);
-  }
-  const uniqueSources = [...new Set(sources)];
-  return Promise.all(uniqueSources.map(src => preloadImage(src)));
+  const t = [...new Set(a)];
+  return Promise.all(t.map((e) => O(e)));
 }
-function preloadImagesInRange(items, currentIndex, range) {
-  if (!items || items.length === 0 || range < 0) {
+function X(a, t, e) {
+  if (!a || a.length === 0 || e < 0)
     return;
+  const s = a.length, i = /* @__PURE__ */ new Set();
+  for (let o = 1; o <= e; o++) {
+    const n = (t - o + s) % s, l = (t + o) % s, u = a[n]?.querySelector("img"), d = a[l]?.querySelector("img");
+    u && u.src && !u.complete && i.add(u.src), d && d.src && !d.complete && i.add(d.src);
   }
-  const totalItems = items.length;
-  const imagesToPreload = new Set();
-  for (let distance = 1; distance <= range; distance++) {
-    const prevIndex = (currentIndex - distance + totalItems) % totalItems;
-    const nextIndex = (currentIndex + distance) % totalItems;
-    const prevImg = items[prevIndex]?.querySelector('img');
-    const nextImg = items[nextIndex]?.querySelector('img');
-    if (prevImg && prevImg.src && !prevImg.complete) {
-      imagesToPreload.add(prevImg.src);
-    }
-    if (nextImg && nextImg.src && !nextImg.complete) {
-      imagesToPreload.add(nextImg.src);
-    }
-  }
-  if (imagesToPreload.size > 0) {
-    preloadImages([...imagesToPreload]).catch(err => {
-      console.warn('일부 이미지 프리로드 실패:', err);
-    });
-  }
+  i.size > 0 && z([...i]).catch((o) => {
+    console.warn("일부 이미지 프리로드 실패:", o);
+  });
 }
-
-const iconCache = new Map();
-function createSVGIcon(path, options = {}) {
+const R = /* @__PURE__ */ new Map();
+function j(a, t = {}) {
   const {
-    width = 24,
-    height = 24,
-    viewBox = '0 0 24 24',
-    fill = 'none',
-    stroke = 'currentColor',
-    strokeWidth = 2,
-    strokeLinecap = 'round',
-    strokeLinejoin = 'round',
-    className = ''
-  } = options;
-  const cacheKey = `${path}-${JSON.stringify(options)}`;
-  if (iconCache.has(cacheKey)) {
-    return iconCache.get(cacheKey);
-  }
-  const svg = `<svg width="${width}" height="${height}" viewBox="${viewBox}" fill="${fill}" xmlns="http://www.w3.org/2000/svg" class="${className}"><path d="${path}" stroke="${stroke}" stroke-width="${strokeWidth}" stroke-linecap="${strokeLinecap}" stroke-linejoin="${strokeLinejoin}"/></svg>`;
-  iconCache.set(cacheKey, svg);
-  return svg;
+    width: e = 24,
+    height: s = 24,
+    viewBox: i = "0 0 24 24",
+    fill: o = "none",
+    stroke: n = "currentColor",
+    strokeWidth: l = 2,
+    strokeLinecap: u = "round",
+    strokeLinejoin: d = "round",
+    className: h = ""
+  } = t, c = `${a}-${JSON.stringify(t)}`;
+  if (R.has(c))
+    return R.get(c);
+  const p = `<svg width="${e}" height="${s}" viewBox="${i}" fill="${o}" xmlns="http://www.w3.org/2000/svg" class="${h}"><path d="${a}" stroke="${n}" stroke-width="${l}" stroke-linecap="${u}" stroke-linejoin="${d}"/></svg>`;
+  return R.set(c, p), p;
 }
-const ICONS = {
+const W = {
   prev: {
-    path: 'M15 18L9 12L15 6',
+    path: "M15 18L9 12L15 6",
     options: {}
   },
   next: {
-    path: 'M9 18L15 12L9 6',
+    path: "M9 18L15 12L9 6",
     options: {}
   },
   play: {
-    path: 'M8 6.5v11l9-5.5z',
+    path: "M8 6.5v11l9-5.5z",
     options: {
-      fill: 'currentColor',
-      stroke: 'currentColor',
+      fill: "currentColor",
+      stroke: "currentColor",
       strokeWidth: 0,
-      strokeLinecap: 'round',
-      strokeLinejoin: 'round'
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
     }
   },
   pause: {
-    path: 'M7 5.5C7 5.22386 7.22386 5 7.5 5H9.5C9.77614 5 10 5.22386 10 5.5V18.5C10 18.7761 9.77614 19 9.5 19H7.5C7.22386 19 7 18.7761 7 18.5V5.5ZM14 5.5C14 5.22386 14.2239 5 14.5 5H16.5C16.7761 5 17 5.22386 17 5.5V18.5C17 18.7761 16.7761 19 16.5 19H14.5C14.2239 19 14 18.7761 14 18.5V5.5Z',
+    path: "M7 5.5C7 5.22386 7.22386 5 7.5 5H9.5C9.77614 5 10 5.22386 10 5.5V18.5C10 18.7761 9.77614 19 9.5 19H7.5C7.22386 19 7 18.7761 7 18.5V5.5ZM14 5.5C14 5.22386 14.2239 5 14.5 5H16.5C16.7761 5 17 5.22386 17 5.5V18.5C17 18.7761 16.7761 19 16.5 19H14.5C14.2239 19 14 18.7761 14 18.5V5.5Z",
     options: {
-      fill: 'currentColor',
-      stroke: 'none'
+      fill: "currentColor",
+      stroke: "none"
     }
   }
 };
-function getIcon(iconName, customOptions = {}) {
-  const icon = ICONS[iconName];
-  if (!icon) {
-    console.warn(`PeekCarousel: 아이콘 "${iconName}"을 찾을 수 없습니다`);
-    return '';
-  }
-  const options = {
-    ...icon.options,
-    ...customOptions
-  };
-  return createSVGIcon(icon.path, options);
+function D(a, t = {}) {
+  const e = W[a];
+  if (!e)
+    return console.warn(`PeekCarousel: 아이콘 "${a}"을 찾을 수 없습니다`), "";
+  const s = { ...e.options, ...t };
+  return j(e.path, s);
 }
-function injectIcon(button, iconName, options = {}) {
-  if (!button || !(button instanceof HTMLElement)) return;
-  if (button.querySelector('svg')) {
+function _(a, t, e = {}) {
+  if (!a || !(a instanceof HTMLElement) || a.querySelector("svg"))
     return;
-  }
-  const iconHTML = getIcon(iconName, options);
-  if (iconHTML) {
-    button.innerHTML = iconHTML;
-  }
+  const s = D(t, e);
+  s && (a.innerHTML = s);
 }
-function injectAutoRotateIcons(button) {
-  if (!button || !(button instanceof HTMLElement)) return;
-  if (button.querySelector('svg')) {
+function q(a) {
+  if (!a || !(a instanceof HTMLElement) || a.querySelector("svg"))
     return;
-  }
-  const playHTML = getIcon('play', {
-    className: 'play-icon'
-  });
-  const pauseHTML = getIcon('pause', {
-    className: 'pause-icon'
-  });
-  if (playHTML && pauseHTML) {
-    button.innerHTML = playHTML + pauseHTML;
-  }
+  const t = D("play", { className: "play-icon" }), e = D("pause", { className: "pause-icon" });
+  t && e && (a.innerHTML = t + e);
 }
-
-function isMobile() {
+function F() {
   return window.innerWidth <= 768;
 }
-function normalizeIndex(index, length) {
-  if (length <= 0) return 0;
-  return (index % length + length) % length;
+function y(a, t) {
+  return t <= 0 ? 0 : (a % t + t) % t;
 }
-
-const PROXIMITY_THRESHOLD = 2;
-class Navigator {
-  constructor(carousel) {
-    this.carousel = carousel;
+const V = 2;
+class K {
+  constructor(t) {
+    this.carousel = t;
   }
   get currentIndex() {
     return this.carousel.state.currentIndex;
   }
-  set currentIndex(value) {
-    this.carousel.state.currentIndex = normalizeIndex(value, this.carousel.totalItems);
+  set currentIndex(t) {
+    this.carousel.state.currentIndex = y(t, this.carousel.totalItems);
   }
-  getShortestDistance(from, to) {
-    const total = this.carousel.totalItems;
-    const normalizedTo = normalizeIndex(to, total);
-    const normalizedFrom = normalizeIndex(from, total);
-    const forwardDist = (normalizedTo - normalizedFrom + total) % total;
-    const backwardDist = (normalizedFrom - normalizedTo + total) % total;
-    return forwardDist <= backwardDist ? forwardDist : -backwardDist;
+  getShortestDistance(t, e) {
+    const s = this.carousel.totalItems, i = y(e, s), o = y(t, s), n = (i - o + s) % s, l = (o - i + s) % s;
+    return n <= l ? n : -l;
   }
-  isNearby(from, to) {
-    const distance = Math.abs(this.getShortestDistance(from, to));
-    return distance <= PROXIMITY_THRESHOLD;
+  isNearby(t, e) {
+    return Math.abs(this.getShortestDistance(t, e)) <= V;
   }
   updateAfterNavigation() {
-    this.carousel.animator.updateCarousel();
-    this.carousel.updateCounter();
-    if (this.carousel.options.preloadRange > 0) {
-      this.carousel.preloadImages();
-    }
+    this.carousel.animator.updateCarousel(), this.carousel.updateCounter(), this.carousel.options.preloadRange > 0 && this.carousel.preloadImages();
   }
-  rotate(direction) {
-    this.currentIndex = this.currentIndex + direction;
-    this.updateAfterNavigation();
+  rotate(t) {
+    this.currentIndex = this.currentIndex + t, this.updateAfterNavigation();
   }
   next() {
     this.rotate(1);
@@ -343,673 +250,432 @@ class Navigator {
   prev() {
     this.rotate(-1);
   }
-  goTo(index) {
-    const normalizedIndex = normalizeIndex(index, this.carousel.totalItems);
-    if (normalizedIndex === this.currentIndex) return;
-    this.currentIndex = normalizedIndex;
-    this.updateAfterNavigation();
+  goTo(t) {
+    const e = y(t, this.carousel.totalItems);
+    e !== this.currentIndex && (this.currentIndex = e, this.updateAfterNavigation());
   }
-  navigateIfDifferent(targetIndex, callback) {
-    const normalizedIndex = normalizeIndex(targetIndex, this.carousel.totalItems);
-    if (normalizedIndex === this.currentIndex) return false;
-    callback(normalizedIndex);
-    return true;
+  navigateIfDifferent(t, e) {
+    const s = y(t, this.carousel.totalItems);
+    return s === this.currentIndex ? !1 : (e(s), !0);
   }
-  handleItemClick(index) {
-    this.navigateIfDifferent(index, normalizedIndex => {
-      const {
-        layoutMode
-      } = this.carousel.options;
-      if (layoutMode === 'radial') {
-        this.handleRadialItemClick(normalizedIndex);
-      } else {
-        this.handleStackItemClick(normalizedIndex);
-      }
+  handleItemClick(t) {
+    this.navigateIfDifferent(t, (e) => {
+      const { layoutMode: s } = this.carousel.options;
+      s === "radial" ? this.handleRadialItemClick(e) : this.handleStackItemClick(e);
     });
   }
-  handleRadialItemClick(normalizedIndex) {
-    const shortestDist = this.getShortestDistance(this.currentIndex, normalizedIndex);
-    if (Math.abs(shortestDist) > 1) {
-      const direction = shortestDist > 0 ? 1 : -1;
-      this.rotate(direction);
-    } else {
-      this.rotate(shortestDist);
-    }
+  handleRadialItemClick(t) {
+    const e = this.getShortestDistance(this.currentIndex, t);
+    if (Math.abs(e) > 1) {
+      const s = e > 0 ? 1 : -1;
+      this.rotate(s);
+    } else
+      this.rotate(e);
   }
-  handleStackItemClick(normalizedIndex) {
-    if (this.isNearby(this.currentIndex, normalizedIndex)) {
-      const shortestDist = this.getShortestDistance(this.currentIndex, normalizedIndex);
-      this.rotate(shortestDist);
-    } else {
-      this.goTo(normalizedIndex);
-    }
+  handleStackItemClick(t) {
+    if (this.isNearby(this.currentIndex, t)) {
+      const e = this.getShortestDistance(this.currentIndex, t);
+      this.rotate(e);
+    } else
+      this.goTo(t);
   }
-  handleIndicatorClick(index) {
-    this.navigateIfDifferent(index, normalizedIndex => {
-      const {
-        layoutMode
-      } = this.carousel.options;
-      if (layoutMode === 'radial') {
-        const shortestDist = this.getShortestDistance(this.currentIndex, normalizedIndex);
-        this.rotate(shortestDist);
-      } else {
-        this.goTo(normalizedIndex);
-      }
+  handleIndicatorClick(t) {
+    this.navigateIfDifferent(t, (e) => {
+      const { layoutMode: s } = this.carousel.options;
+      if (s === "radial") {
+        const i = this.getShortestDistance(this.currentIndex, e);
+        this.rotate(i);
+      } else
+        this.goTo(e);
     });
   }
 }
-
-const RADIAL_RADIUS = 400;
-const CLASSIC_POSITIONS = Object.freeze({
-  center: {
-    x: 50,
-    scale: 1
-  },
-  peek: {
-    scale: 1
-  },
-  hidden: {
-    scale: 0.85
-  }
-});
-const CLASSIC_SPACING = Object.freeze({
+const U = 400, m = Object.freeze({
+  center: { x: 50, scale: 1 },
+  peek: { scale: 1 },
+  hidden: { scale: 0.85 }
+}), k = Object.freeze({
   gapPercent: 5,
   additionalMobile: 40,
   additionalDesktop: 15,
   mobileBreakpoint: 768
-});
-const MOMENTUM_CONFIG = Object.freeze({
+}), S = Object.freeze({
   friction: 0.92,
   minVelocity: 0.05,
   navigationThreshold: 1.5,
   dampingFactor: 0.6
-});
-const STACK_POSITION_CLASSES = [CLASS_NAMES.itemCenter, CLASS_NAMES.itemPrev, CLASS_NAMES.itemNext, CLASS_NAMES.itemHidden];
-class Animator {
-  constructor(carousel) {
-    this.carousel = carousel;
-    this.momentumAnimation = null;
-    this.isAnimating = false;
+}), G = [
+  r.itemCenter,
+  r.itemPrev,
+  r.itemNext,
+  r.itemHidden
+];
+class Y {
+  constructor(t) {
+    this.carousel = t, this.momentumAnimation = null, this.isAnimating = !1, this.previousIndex = null;
   }
-  normalizeAngleDiff(diff) {
-    return (diff + 180) % 360 - 180;
+  normalizeAngleDiff(t) {
+    return (t + 180) % 360 - 180;
   }
-  round(value, decimals = 2) {
-    return Math.round(value * 10 ** decimals) / 10 ** decimals;
+  round(t, e = 2) {
+    return Math.round(t * 10 ** e) / 10 ** e;
   }
-  getAdjacentIndices(currentIndex) {
+  getAdjacentIndices(t) {
     return {
-      prev: normalizeIndex(currentIndex - 1, this.carousel.totalItems),
-      next: normalizeIndex(currentIndex + 1, this.carousel.totalItems)
+      prev: y(t - 1, this.carousel.totalItems),
+      next: y(t + 1, this.carousel.totalItems)
     };
   }
-  setCarouselRotation(angle) {
-    const rounded = this.round(angle, 2);
-    this.carousel.container.style.setProperty('--carousel-rotation', `${rounded}deg`);
+  setCarouselRotation(t) {
+    const e = this.round(t, 2);
+    this.carousel.container.style.setProperty("--carousel-rotation", `${e}deg`);
   }
-  setCSSVariables(element, variables) {
-    for (const [key, value] of Object.entries(variables)) {
-      element.style.setProperty(key, value);
-    }
+  setCSSVariables(t, e) {
+    for (const [s, i] of Object.entries(e))
+      t.style.setProperty(s, i);
   }
-  updateRadialRotation(currentIndex) {
-    const targetAngle = -this.carousel.state.angleUnit * currentIndex;
-    const currentRotation = this.carousel.container.style.getPropertyValue('--carousel-rotation');
-    if (!currentRotation || currentRotation === '0deg') {
-      this.setCarouselRotation(targetAngle);
+  updateRadialRotation(t) {
+    const e = -this.carousel.state.angleUnit * t, s = this.carousel.container.style.getPropertyValue("--carousel-rotation");
+    if (!s || s === "0deg") {
+      this.setCarouselRotation(e);
       return;
     }
-
-    // [개발참고] 최단 경로 계산: -180 ~ 180 범위로 정규화
-    const currentAngle = parseFloat(currentRotation);
-    const diff = this.normalizeAngleDiff(targetAngle - currentAngle);
-    const finalAngle = currentAngle + diff;
-    this.setCarouselRotation(finalAngle);
+    const i = parseFloat(s), o = this.normalizeAngleDiff(e - i), n = i + o;
+    this.setCarouselRotation(n);
   }
   updateCarousel() {
-    const {
-      currentIndex
-    } = this.carousel.state;
-    const {
-      layoutMode
-    } = this.carousel.options;
-    if (layoutMode === 'stack' || layoutMode === 'classic') {
-      this.setCarouselRotation(0);
-    } else if (layoutMode === 'radial') {
-      this.updateRadialRotation(currentIndex);
-    }
-    this.updateActiveItem();
+    const { currentIndex: t } = this.carousel.state, { layoutMode: e } = this.carousel.options;
+    e === "stack" || e === "classic" ? this.setCarouselRotation(0) : e === "radial" && this.updateRadialRotation(t), this.updateActiveItem();
   }
   updateActiveItem() {
-    const {
-      currentIndex
-    } = this.carousel.state;
-    const {
-      layoutMode
-    } = this.carousel.options;
-    this.carousel.ui.updateActiveStates(currentIndex);
-    if (layoutMode === 'radial') {
-      this.updateRadialPositions(currentIndex);
-    } else if (layoutMode === 'classic') {
-      this.updateClassicPositions(currentIndex);
-    } else {
-      this.updateStackPositions(currentIndex);
-    }
+    const { currentIndex: t } = this.carousel.state, { layoutMode: e } = this.carousel.options;
+    this.carousel.ui.updateActiveStates(t), e === "radial" ? this.updateRadialPositions(t) : e === "classic" ? this.updateClassicPositions(t) : this.updateStackPositions(t);
   }
-  updateRadialPositions(currentIndex) {
-    const {
-      angleUnit
-    } = this.carousel.state;
-    for (let i = 0; i < this.carousel.items.length; i++) {
-      const item = this.carousel.items[i];
-      const angle = angleUnit * i;
-      this.setCSSVariables(item, {
-        '--item-angle': `${this.round(angle, 2)}deg`,
-        '--item-radius': `${RADIAL_RADIUS}px`
+  updateRadialPositions(t) {
+    const { angleUnit: e } = this.carousel.state;
+    for (let o = 0; o < this.carousel.items.length; o++) {
+      const n = this.carousel.items[o], l = e * o;
+      this.setCSSVariables(n, {
+        "--item-angle": `${this.round(l, 2)}deg`,
+        "--item-radius": `${U}px`
       });
     }
-    const {
-      prev,
-      next
-    } = this.getAdjacentIndices(currentIndex);
-    this.carousel.ui.setPeekItems(prev, next);
+    const { prev: s, next: i } = this.getAdjacentIndices(t);
+    this.carousel.ui.setPeekItems(s, i);
   }
-  updateStackPositions(currentIndex) {
-    const {
-      prev,
-      next
-    } = this.getAdjacentIndices(currentIndex);
+  updateStackPositions(t) {
+    const { prev: e, next: s } = this.getAdjacentIndices(t);
     for (let i = 0; i < this.carousel.items.length; i++) {
-      const item = this.carousel.items[i];
-      item.classList.remove(...STACK_POSITION_CLASSES);
-      if (i === currentIndex) {
-        item.classList.add(CLASS_NAMES.itemCenter);
-      } else if (i === prev) {
-        item.classList.add(CLASS_NAMES.itemPrev);
-      } else if (i === next) {
-        item.classList.add(CLASS_NAMES.itemNext);
-      } else {
-        item.classList.add(CLASS_NAMES.itemHidden);
-      }
+      const o = this.carousel.items[i];
+      o.classList.remove(...G), i === t ? o.classList.add(r.itemCenter) : i === e ? o.classList.add(r.itemPrev) : i === s ? o.classList.add(r.itemNext) : o.classList.add(r.itemHidden);
     }
   }
-  calculateClassicSpacing(containerWidth) {
-    const itemWidth = Math.max(300, Math.min(containerWidth * 0.35, 500));
-    const isMobile = containerWidth <= CLASSIC_SPACING.mobileBreakpoint;
-    const itemHalfPercent = itemWidth / containerWidth * 50;
-    const baseSpacing = itemHalfPercent + CLASSIC_SPACING.gapPercent;
-    const additionalSpacing = isMobile ? CLASSIC_SPACING.additionalMobile : CLASSIC_SPACING.additionalDesktop;
-    return baseSpacing + additionalSpacing;
+  calculateClassicSpacing(t) {
+    const e = Math.max(300, Math.min(t * 0.35, 500)), s = t <= k.mobileBreakpoint, o = e / t * 50 + k.gapPercent, n = s ? k.additionalMobile : k.additionalDesktop;
+    return o + n;
   }
-  getClassicItemPosition(itemIndex, currentIndex, itemSpacing) {
-    const {
-      prev,
-      next
-    } = this.getAdjacentIndices(currentIndex);
-    if (itemIndex === currentIndex) {
+  // ==========================================
+  // Classic Mode - Seamless Infinite Scroll
+  // ==========================================
+  getWrapInfo(t, e) {
+    if (t === null) return { isWrap: !1, direction: 0 };
+    const s = this.carousel.totalItems, i = t === s - 1 && e === 0, o = t === 0 && e === s - 1;
+    return i ? { isWrap: !0, direction: 1 } : o ? { isWrap: !0, direction: -1 } : { isWrap: !1, direction: e > t ? 1 : -1 };
+  }
+  getClassicItemPosition(t, e, s, i = 0) {
+    const { prev: o, next: n } = this.getAdjacentIndices(e), l = this.carousel.totalItems;
+    if (t === e)
       return {
-        x: CLASSIC_POSITIONS.center.x,
-        scale: CLASSIC_POSITIONS.center.scale
+        x: m.center.x,
+        scale: m.center.scale,
+        isCenter: !0
       };
-    }
-    if (itemIndex === prev) {
+    if (t === o)
       return {
-        x: CLASSIC_POSITIONS.center.x - itemSpacing,
-        scale: CLASSIC_POSITIONS.peek.scale
+        x: m.center.x - s,
+        scale: m.peek.scale,
+        isPrev: !0
       };
-    }
-    if (itemIndex === next) {
+    if (t === n)
       return {
-        x: CLASSIC_POSITIONS.center.x + itemSpacing,
-        scale: CLASSIC_POSITIONS.peek.scale
+        x: m.center.x + s,
+        scale: m.peek.scale,
+        isNext: !0
       };
-    }
-    const distanceFromCurrent = itemIndex - currentIndex;
+    const u = (t - e + l) % l, d = (e - t + l) % l;
     return {
-      x: distanceFromCurrent < 0 ? CLASSIC_POSITIONS.center.x - itemSpacing * 2 : CLASSIC_POSITIONS.center.x + itemSpacing * 2,
-      scale: CLASSIC_POSITIONS.hidden.scale
+      x: u < d ? m.center.x + s * 2 : m.center.x - s * 2,
+      scale: m.hidden.scale,
+      isHidden: !0
     };
   }
-  updateClassicPositions(currentIndex) {
-    const {
-      prev,
-      next
-    } = this.getAdjacentIndices(currentIndex);
-    const containerWidth = this.carousel.container.offsetWidth;
-    const itemSpacing = this.calculateClassicSpacing(containerWidth);
-    for (let i = 0; i < this.carousel.items.length; i++) {
-      const item = this.carousel.items[i];
-      const {
-        x,
-        scale
-      } = this.getClassicItemPosition(i, currentIndex, itemSpacing);
-      this.setCSSVariables(item, {
-        '--item-x': `${this.round(x, 2)}%`,
-        '--item-scale': String(scale)
-      });
+  updateClassicPositions(t) {
+    const { prev: e, next: s } = this.getAdjacentIndices(t), i = this.carousel.container.offsetWidth, o = this.calculateClassicSpacing(i), { isWrap: n, direction: l } = this.getWrapInfo(this.previousIndex, t), u = this.carousel.items, d = this.previousIndex !== null ? this.getAdjacentIndices(this.previousIndex) : { prev: null, next: null };
+    if (n) {
+      const h = new Set([
+        t,
+        e,
+        s,
+        this.previousIndex,
+        d.prev,
+        d.next
+      ].filter((c) => c !== null));
+      for (let c = 0; c < u.length; c++)
+        h.has(c) || (u[c].style.transition = "none");
+      this.carousel.container.offsetHeight;
     }
-    this.carousel.ui.setPeekItems(prev, next);
+    for (let h = 0; h < u.length; h++) {
+      const c = u[h], p = this.getClassicItemPosition(h, t, o);
+      this.setCSSVariables(c, {
+        "--item-x": `${this.round(p.x, 2)}%`,
+        "--item-scale": String(p.scale)
+      }), p.isCenter ? (c.style.opacity = "1", c.style.visibility = "visible", c.style.zIndex = "100") : p.isPrev || p.isNext ? (c.style.opacity = "0.6", c.style.visibility = "visible", c.style.zIndex = "50") : (c.style.opacity = "0", c.style.visibility = "hidden", c.style.zIndex = "0");
+    }
+    n && requestAnimationFrame(() => {
+      for (let h = 0; h < u.length; h++)
+        u[h].style.transition = "";
+    }), this.previousIndex = t, this.carousel.ui.setPeekItems(e, s);
   }
-  startMomentum(velocity) {
+  // ==========================================
+  // Momentum
+  // ==========================================
+  startMomentum(t) {
     this.stopMomentum();
-    let currentVelocity = velocity;
-    const momentumStep = () => {
-      currentVelocity *= MOMENTUM_CONFIG.friction;
-      if (Math.abs(currentVelocity) < MOMENTUM_CONFIG.minVelocity) {
+    let e = t;
+    const s = () => {
+      if (e *= S.friction, Math.abs(e) < S.minVelocity) {
         this.stopMomentum();
         return;
       }
-      if (Math.abs(currentVelocity) > MOMENTUM_CONFIG.navigationThreshold) {
-        const direction = currentVelocity > 0 ? -1 : 1;
-        this.carousel.navigator.rotate(direction);
-        currentVelocity *= MOMENTUM_CONFIG.dampingFactor;
+      if (Math.abs(e) > S.navigationThreshold) {
+        const i = e > 0 ? -1 : 1;
+        this.carousel.navigator.rotate(i), e *= S.dampingFactor;
       }
-      this.momentumAnimation = requestAnimationFrame(momentumStep);
+      this.momentumAnimation = requestAnimationFrame(s);
     };
-    this.isAnimating = true;
-    this.momentumAnimation = requestAnimationFrame(momentumStep);
+    this.isAnimating = !0, this.momentumAnimation = requestAnimationFrame(s);
   }
   stopMomentum() {
-    if (this.momentumAnimation) {
-      cancelAnimationFrame(this.momentumAnimation);
-      this.momentumAnimation = null;
-    }
-    this.isAnimating = false;
+    this.momentumAnimation && (cancelAnimationFrame(this.momentumAnimation), this.momentumAnimation = null), this.isAnimating = !1;
   }
 }
-
-class AutoRotate {
-  constructor(carousel) {
-    this.carousel = carousel;
-    this.interval = null;
-    this.isActive = false;
+class Z {
+  constructor(t) {
+    this.carousel = t, this.interval = null, this.isActive = !1;
   }
-  setActiveState(isActive) {
-    this.isActive = isActive;
-    this.carousel.ui.updateAutoRotateButton(isActive);
+  setActiveState(t) {
+    this.isActive = t, this.carousel.ui.updateAutoRotateButton(t);
   }
   toggle() {
     this.isActive ? this.stop() : this.start();
   }
   start() {
     if (this.isActive) return;
-    this.setActiveState(true);
-    const rotateInterval = this.carousel.options.autoRotateInterval;
+    this.setActiveState(!0);
+    const t = this.carousel.options.autoRotateInterval;
     this.interval = setInterval(() => {
       this.carousel.navigator.next();
-    }, rotateInterval);
+    }, t);
   }
   stop() {
-    if (!this.isActive) return;
-    this.setActiveState(false);
-    if (this.interval) {
-      clearInterval(this.interval);
-      this.interval = null;
-    }
+    this.isActive && (this.setActiveState(!1), this.interval && (clearInterval(this.interval), this.interval = null));
   }
   destroy() {
-    this.stop();
-    this.carousel = null;
+    this.stop(), this.carousel = null;
   }
 }
-
-const WHEEL_CONFIG = Object.freeze({
+const x = Object.freeze({
   threshold: 50,
   timeout: 150,
   cooldown: 100
-});
-const DRAG_CONFIG = Object.freeze({
+}), w = Object.freeze({
   touchThreshold: 15,
   mouseThreshold: 10,
   velocityThreshold: 0.5
-});
-const RESIZE_DEBOUNCE = 100;
-let handlerId = 0;
-class EventHandler {
-  constructor(carousel) {
-    this.carousel = carousel;
-    this.boundHandlers = new Map();
-    this.resizeTimer = null;
-    this.touch = {
+}), J = 100;
+let Q = 0;
+class tt {
+  constructor(t) {
+    this.carousel = t, this.boundHandlers = /* @__PURE__ */ new Map(), this.resizeTimer = null, this.touch = {
       startX: 0,
       endX: 0
-    };
-    this.drag = {
-      active: false,
+    }, this.drag = {
+      active: !1,
       startX: 0,
       currentX: 0,
       lastX: 0,
       lastTime: 0,
       velocity: 0
-    };
-    this.wheel = {
-      isScrolling: false,
+    }, this.wheel = {
+      isScrolling: !1,
       scrollTimeout: null,
       lastWheelTime: 0,
       accumulatedDelta: 0
     };
   }
   init() {
-    this.initNavigationButtons();
-    this.initKeyboard();
-    this.initWheel();
-    this.initItemClick();
-    this.initIndicatorClick();
-    this.initTouch();
-    this.initMouse();
-    this.initResize();
+    this.initNavigationButtons(), this.initKeyboard(), this.initWheel(), this.initItemClick(), this.initIndicatorClick(), this.initTouch(), this.initMouse(), this.initResize();
   }
-  stopAutoRotateAndNavigate(navigationFn) {
-    this.completeCurrentIndicator();
-    this.carousel.autoRotate.stop();
-    navigationFn();
+  stopAutoRotateAndNavigate(t) {
+    this.completeCurrentIndicator(), this.carousel.autoRotate.stop(), t();
   }
   completeCurrentIndicator() {
-    const currentIndicator = this.carousel.indicators[this.carousel.state.currentIndex];
-    if (currentIndicator && currentIndicator.classList.contains('peek-carousel__indicator--active')) {
-      currentIndicator.classList.add('peek-carousel__indicator--completed');
-    }
+    const t = this.carousel.indicators[this.carousel.state.currentIndex];
+    t && t.classList.contains("peek-carousel__indicator--active") && t.classList.add("peek-carousel__indicator--completed");
   }
-  resetDragState(index) {
-    this.carousel.ui.removeDraggingClass(index);
-    this.carousel.ui.clearDragTransform();
+  resetDragState(t) {
+    this.carousel.ui.removeDraggingClass(t), this.carousel.ui.clearDragTransform();
   }
-  updateDraggingClass(dragDistance, currentIndex, threshold) {
-    if (dragDistance > threshold) {
-      this.carousel.ui.addDraggingClass(currentIndex, 'right');
-    } else if (dragDistance < -threshold) {
-      this.carousel.ui.addDraggingClass(currentIndex, 'left');
-    }
+  updateDraggingClass(t, e, s) {
+    t > s ? this.carousel.ui.addDraggingClass(e, "right") : t < -s && this.carousel.ui.addDraggingClass(e, "left");
   }
-  initDragState(clientX) {
-    this.drag.active = true;
-    this.drag.startX = clientX;
-    this.drag.currentX = clientX;
-    this.drag.lastX = clientX;
-    this.drag.lastTime = Date.now();
-    this.drag.velocity = 0;
+  initDragState(t) {
+    this.drag.active = !0, this.drag.startX = t, this.drag.currentX = t, this.drag.lastX = t, this.drag.lastTime = Date.now(), this.drag.velocity = 0;
   }
   resetMouseCursor() {
-    this.carousel.elements.carousel.style.cursor = 'grab';
+    this.carousel.elements.carousel.style.cursor = "grab";
   }
-  calculateWheelDelta(e) {
-    const deltaX = Math.abs(e.deltaX);
-    const deltaY = Math.abs(e.deltaY);
-    const isHorizontal = deltaX > deltaY;
-
-    // [개발참고] 수평: 왼쪽(-) = 다음, 오른쪽(+) = 이전
-    //            수직: 아래(+) = 다음, 위(-) = 이전
-    return isHorizontal ? -e.deltaX : e.deltaY;
+  calculateWheelDelta(t) {
+    const e = Math.abs(t.deltaX), s = Math.abs(t.deltaY);
+    return e > s ? -t.deltaX : t.deltaY;
   }
   resetWheelState() {
-    this.wheel.isScrolling = false;
-    this.wheel.accumulatedDelta = 0;
+    this.wheel.isScrolling = !1, this.wheel.accumulatedDelta = 0;
   }
   initNavigationButtons() {
-    const {
-      prevBtn,
-      nextBtn,
-      autoRotateBtn
-    } = this.carousel.elements;
-    if (prevBtn) {
-      this.addHandler(prevBtn, 'click', () => {
-        this.stopAutoRotateAndNavigate(() => this.carousel.navigator.prev());
-      });
-    }
-    if (nextBtn) {
-      this.addHandler(nextBtn, 'click', () => {
-        this.stopAutoRotateAndNavigate(() => this.carousel.navigator.next());
-      });
-    }
-    if (autoRotateBtn) {
-      this.addHandler(autoRotateBtn, 'click', () => {
-        this.carousel.autoRotate.toggle();
-      });
-    }
+    const { prevBtn: t, nextBtn: e, autoRotateBtn: s } = this.carousel.elements;
+    t && this.addHandler(t, "click", () => {
+      this.stopAutoRotateAndNavigate(() => this.carousel.navigator.prev());
+    }), e && this.addHandler(e, "click", () => {
+      this.stopAutoRotateAndNavigate(() => this.carousel.navigator.next());
+    }), s && this.addHandler(s, "click", () => {
+      this.carousel.autoRotate.toggle();
+    });
   }
   initKeyboard() {
     if (!this.carousel.options.enableKeyboard) return;
-    const handler = e => {
-      const {
-        navigator,
-        autoRotate,
-        totalItems
-      } = this.carousel;
+    const t = (e) => {
+      const { navigator: s, autoRotate: i, totalItems: o } = this.carousel;
       switch (e.key) {
-        case KEYS.arrowLeft:
-          autoRotate.stop();
-          navigator.prev();
+        case b.arrowLeft:
+          i.stop(), s.prev();
           break;
-        case KEYS.arrowRight:
-          autoRotate.stop();
-          navigator.next();
+        case b.arrowRight:
+          i.stop(), s.next();
           break;
-        case KEYS.home:
-          e.preventDefault();
-          autoRotate.stop();
-          navigator.goTo(0);
+        case b.home:
+          e.preventDefault(), i.stop(), s.goTo(0);
           break;
-        case KEYS.end:
-          e.preventDefault();
-          autoRotate.stop();
-          navigator.goTo(totalItems - 1);
+        case b.end:
+          e.preventDefault(), i.stop(), s.goTo(o - 1);
           break;
-        case KEYS.space:
-          e.preventDefault();
-          autoRotate.toggle();
+        case b.space:
+          e.preventDefault(), i.toggle();
           break;
         default:
-          const numKey = parseInt(e.key);
-          if (numKey >= 1 && numKey <= totalItems) {
-            e.preventDefault();
-            autoRotate.stop();
-            navigator.goTo(numKey - 1);
-          }
+          const n = parseInt(e.key);
+          n >= 1 && n <= o && (e.preventDefault(), i.stop(), s.goTo(n - 1));
       }
     };
-    this.addHandler(document, 'keydown', handler);
+    this.addHandler(document, "keydown", t);
   }
   initWheel() {
     if (!this.carousel.options.enableWheel) return;
-    const handler = e => {
-      const deltaX = Math.abs(e.deltaX);
-      const deltaY = Math.abs(e.deltaY);
-      if (deltaX < 1 && deltaY < 1) {
+    const t = (e) => {
+      const s = Math.abs(e.deltaX), i = Math.abs(e.deltaY);
+      if (s < 1 && i < 1 || s === i)
         return;
-      }
-      if (deltaX === deltaY) {
-        return;
-      }
       e.preventDefault();
-      const currentTime = Date.now();
-      if (currentTime - this.wheel.lastWheelTime < WHEEL_CONFIG.cooldown) {
-        return;
+      const o = Date.now();
+      if (!(o - this.wheel.lastWheelTime < x.cooldown)) {
+        if (this.wheel.isScrolling || (this.wheel.isScrolling = !0, this.wheel.accumulatedDelta = 0, this.carousel.autoRotate.stop(), this.carousel.animator.stopMomentum()), this.wheel.accumulatedDelta += this.calculateWheelDelta(e), Math.abs(this.wheel.accumulatedDelta) >= x.threshold) {
+          const n = this.wheel.accumulatedDelta > 0 ? 1 : -1;
+          this.carousel.navigator.rotate(n), this.wheel.accumulatedDelta = 0, this.wheel.lastWheelTime = o;
+        }
+        clearTimeout(this.wheel.scrollTimeout), this.wheel.scrollTimeout = setTimeout(() => {
+          this.resetWheelState();
+        }, x.timeout);
       }
-      if (!this.wheel.isScrolling) {
-        this.wheel.isScrolling = true;
-        this.wheel.accumulatedDelta = 0;
-        this.carousel.autoRotate.stop();
-        this.carousel.animator.stopMomentum();
-      }
-      this.wheel.accumulatedDelta += this.calculateWheelDelta(e);
-      if (Math.abs(this.wheel.accumulatedDelta) >= WHEEL_CONFIG.threshold) {
-        const direction = this.wheel.accumulatedDelta > 0 ? 1 : -1;
-        this.carousel.navigator.rotate(direction);
-        this.wheel.accumulatedDelta = 0;
-        this.wheel.lastWheelTime = currentTime;
-      }
-      clearTimeout(this.wheel.scrollTimeout);
-      this.wheel.scrollTimeout = setTimeout(() => {
-        this.resetWheelState();
-      }, WHEEL_CONFIG.timeout);
     };
-    this.addHandler(this.carousel.elements.carousel, 'wheel', handler, {
-      passive: false
-    });
+    this.addHandler(
+      this.carousel.elements.carousel,
+      "wheel",
+      t,
+      { passive: !1 }
+    );
   }
   initItemClick() {
-    const {
-      items
-    } = this.carousel;
-    for (let i = 0; i < items.length; i++) {
-      this.addHandler(items[i], 'click', () => {
-        this.carousel.autoRotate.stop();
-        this.carousel.navigator.handleItemClick(i);
+    const { items: t } = this.carousel;
+    for (let e = 0; e < t.length; e++)
+      this.addHandler(t[e], "click", () => {
+        this.carousel.autoRotate.stop(), this.carousel.navigator.handleItemClick(e);
       });
-    }
   }
   initIndicatorClick() {
-    const {
-      indicators
-    } = this.carousel;
-    for (let i = 0; i < indicators.length; i++) {
-      this.addHandler(indicators[i], 'click', () => {
-        this.carousel.autoRotate.stop();
-        this.carousel.navigator.handleIndicatorClick(i);
+    const { indicators: t } = this.carousel;
+    for (let e = 0; e < t.length; e++)
+      this.addHandler(t[e], "click", () => {
+        this.carousel.autoRotate.stop(), this.carousel.navigator.handleIndicatorClick(e);
       });
-    }
   }
   initTouch() {
-    if (!this.carousel.options.enableTouch) return;
-    this.addHandler(this.carousel.elements.carousel, 'touchstart', e => {
-      this.touch.startX = e.changedTouches[0].screenX;
-    });
-    this.addHandler(this.carousel.elements.carousel, 'touchmove', e => {
-      const touchCurrentX = e.changedTouches[0].screenX;
-      const dragDistance = touchCurrentX - this.touch.startX;
-      const {
-        currentIndex
-      } = this.carousel.state;
-      this.carousel.ui.updateDragTransform(dragDistance);
-      this.updateDraggingClass(dragDistance, currentIndex, DRAG_CONFIG.touchThreshold);
-    });
-    this.addHandler(this.carousel.elements.carousel, 'touchend', e => {
-      this.touch.endX = e.changedTouches[0].screenX;
-      const swipeDistance = this.touch.endX - this.touch.startX;
-      const {
-        swipeThreshold
-      } = this.carousel.options;
-      const {
-        currentIndex
-      } = this.carousel.state;
-      this.resetDragState(currentIndex);
-      if (swipeDistance < -swipeThreshold) {
-        this.carousel.autoRotate.stop();
-        this.carousel.navigator.next();
-      } else if (swipeDistance > swipeThreshold) {
-        this.carousel.autoRotate.stop();
-        this.carousel.navigator.prev();
-      }
-    });
+    this.carousel.options.enableTouch && (this.addHandler(this.carousel.elements.carousel, "touchstart", (t) => {
+      this.touch.startX = t.changedTouches[0].screenX;
+    }), this.addHandler(this.carousel.elements.carousel, "touchmove", (t) => {
+      const s = t.changedTouches[0].screenX - this.touch.startX, { currentIndex: i } = this.carousel.state;
+      this.carousel.ui.updateDragTransform(s), this.updateDraggingClass(s, i, w.touchThreshold);
+    }), this.addHandler(this.carousel.elements.carousel, "touchend", (t) => {
+      this.touch.endX = t.changedTouches[0].screenX;
+      const e = this.touch.endX - this.touch.startX, { swipeThreshold: s } = this.carousel.options, { currentIndex: i } = this.carousel.state;
+      this.resetDragState(i), e < -s ? (this.carousel.autoRotate.stop(), this.carousel.navigator.next()) : e > s && (this.carousel.autoRotate.stop(), this.carousel.navigator.prev());
+    }));
   }
   initMouse() {
-    if (!this.carousel.options.enableMouse) return;
-    this.addHandler(this.carousel.elements.carousel, 'mousedown', e => {
-      if (isMobile()) return;
-      this.initDragState(e.clientX);
-      this.carousel.autoRotate.stop();
-      this.carousel.animator.stopMomentum();
-      this.carousel.elements.carousel.style.cursor = 'grabbing';
-      e.preventDefault();
-    });
-    this.addHandler(document, 'mousemove', e => {
+    this.carousel.options.enableMouse && (this.addHandler(this.carousel.elements.carousel, "mousedown", (t) => {
+      F() || (this.initDragState(t.clientX), this.carousel.autoRotate.stop(), this.carousel.animator.stopMomentum(), this.carousel.elements.carousel.style.cursor = "grabbing", t.preventDefault());
+    }), this.addHandler(document, "mousemove", (t) => {
       if (!this.drag.active) return;
-      const currentTime = Date.now();
-      const deltaTime = currentTime - this.drag.lastTime;
-      const deltaX = e.clientX - this.drag.lastX;
-      if (deltaTime > 0) {
-        this.drag.velocity = deltaX / deltaTime;
+      const e = Date.now(), s = e - this.drag.lastTime, i = t.clientX - this.drag.lastX;
+      s > 0 && (this.drag.velocity = i / s), this.drag.currentX = t.clientX, this.drag.lastX = t.clientX, this.drag.lastTime = e;
+      const o = this.drag.currentX - this.drag.startX, { currentIndex: n } = this.carousel.state;
+      if (this.carousel.ui.updateDragTransform(o), this.updateDraggingClass(o, n, w.mouseThreshold), Math.abs(o) > this.carousel.options.dragThreshold) {
+        const l = o > 0 ? -1 : 1;
+        this.carousel.navigator.rotate(l), this.drag.startX = this.drag.currentX, this.resetDragState(n);
       }
-      this.drag.currentX = e.clientX;
-      this.drag.lastX = e.clientX;
-      this.drag.lastTime = currentTime;
-      const dragDistance = this.drag.currentX - this.drag.startX;
-      const {
-        currentIndex
-      } = this.carousel.state;
-      this.carousel.ui.updateDragTransform(dragDistance);
-      this.updateDraggingClass(dragDistance, currentIndex, DRAG_CONFIG.mouseThreshold);
-      if (Math.abs(dragDistance) > this.carousel.options.dragThreshold) {
-        const direction = dragDistance > 0 ? -1 : 1;
-        this.carousel.navigator.rotate(direction);
-        this.drag.startX = this.drag.currentX;
-        this.resetDragState(currentIndex);
-      }
-    });
-    this.addHandler(document, 'mouseup', () => {
+    }), this.addHandler(document, "mouseup", () => {
       if (!this.drag.active) return;
-      this.drag.active = false;
-      this.resetMouseCursor();
-      const {
-        currentIndex
-      } = this.carousel.state;
-      this.resetDragState(currentIndex);
-      if (Math.abs(this.drag.velocity) > DRAG_CONFIG.velocityThreshold) {
-        this.carousel.animator.startMomentum(this.drag.velocity);
-      }
-    });
-    this.addHandler(this.carousel.elements.carousel, 'mouseleave', () => {
+      this.drag.active = !1, this.resetMouseCursor();
+      const { currentIndex: t } = this.carousel.state;
+      this.resetDragState(t), Math.abs(this.drag.velocity) > w.velocityThreshold && this.carousel.animator.startMomentum(this.drag.velocity);
+    }), this.addHandler(this.carousel.elements.carousel, "mouseleave", () => {
       if (this.drag.active) {
-        this.drag.active = false;
-        this.resetMouseCursor();
-        const {
-          currentIndex
-        } = this.carousel.state;
-        this.resetDragState(currentIndex);
+        this.drag.active = !1, this.resetMouseCursor();
+        const { currentIndex: t } = this.carousel.state;
+        this.resetDragState(t);
       }
-    });
-    if (window.innerWidth > BREAKPOINTS.mobile) {
-      this.resetMouseCursor();
-    }
+    }), window.innerWidth > H.mobile && this.resetMouseCursor());
   }
   initResize() {
-    const handler = () => {
-      clearTimeout(this.resizeTimer);
-      this.resizeTimer = setTimeout(() => {
-        if (this.carousel) {
-          this.carousel.animator.updateCarousel();
-        }
-      }, RESIZE_DEBOUNCE);
+    const t = () => {
+      clearTimeout(this.resizeTimer), this.resizeTimer = setTimeout(() => {
+        this.carousel && this.carousel.animator.updateCarousel();
+      }, J);
     };
-    this.addHandler(window, 'resize', handler);
+    this.addHandler(window, "resize", t);
   }
-  addHandler(element, event, handler, options) {
-    element.addEventListener(event, handler, options);
-    const key = `${event}-${++handlerId}`;
-    this.boundHandlers.set(key, {
-      element,
-      event,
-      handler,
-      options
-    });
+  addHandler(t, e, s, i) {
+    t.addEventListener(e, s, i);
+    const o = `${e}-${++Q}`;
+    this.boundHandlers.set(o, { element: t, event: e, handler: s, options: i });
   }
   destroy() {
-    if (this.wheel.scrollTimeout) {
-      clearTimeout(this.wheel.scrollTimeout);
-      this.wheel.scrollTimeout = null;
-    }
-    if (this.resizeTimer) {
-      clearTimeout(this.resizeTimer);
-      this.resizeTimer = null;
-    }
-    for (const {
-      element,
-      event,
-      handler,
-      options
-    } of this.boundHandlers.values()) {
-      element.removeEventListener(event, handler, options);
-    }
-    this.boundHandlers.clear();
-    this.drag.active = false;
-    this.drag.velocity = 0;
-    this.wheel.isScrolling = false;
-    this.wheel.accumulatedDelta = 0;
-    this.carousel = null;
+    this.wheel.scrollTimeout && (clearTimeout(this.wheel.scrollTimeout), this.wheel.scrollTimeout = null), this.resizeTimer && (clearTimeout(this.resizeTimer), this.resizeTimer = null);
+    for (const { element: t, event: e, handler: s, options: i } of this.boundHandlers.values())
+      t.removeEventListener(e, s, i);
+    this.boundHandlers.clear(), this.drag.active = !1, this.drag.velocity = 0, this.wheel.isScrolling = !1, this.wheel.accumulatedDelta = 0, this.carousel = null;
   }
 }
-
-const DRAG_TRANSFORM_CONFIG = Object.freeze({
+const T = Object.freeze({
   stack: {
     maxDrag: 200,
     offsetMultiplier: 100,
@@ -1022,326 +688,195 @@ const DRAG_TRANSFORM_CONFIG = Object.freeze({
     dragSensitivity: 0.5
   }
 });
-class UIManager {
-  constructor(carousel) {
-    this.carousel = carousel;
+class et {
+  constructor(t) {
+    this.carousel = t;
   }
-  updateActiveStates(currentIndex) {
+  updateActiveStates(t) {
     for (let i = 0; i < this.carousel.items.length; i++) {
-      const item = this.carousel.items[i];
-      removeClass(item, CLASS_NAMES.itemActive, CLASS_NAMES.itemPrev, CLASS_NAMES.itemNext);
-      item.removeAttribute(ARIA.current);
+      const o = this.carousel.items[i];
+      v(o, r.itemActive, r.itemPrev, r.itemNext), o.removeAttribute(g.current);
     }
     for (let i = 0; i < this.carousel.indicators.length; i++) {
-      const indicator = this.carousel.indicators[i];
-      removeClass(indicator, CLASS_NAMES.indicatorActive, CLASS_NAMES.indicatorProgress);
-      setAttribute(indicator, ARIA.selected, 'false');
-      setAttribute(indicator, ARIA.tabindex, '-1');
+      const o = this.carousel.indicators[i];
+      v(
+        o,
+        r.indicatorActive,
+        r.indicatorProgress
+      ), I(o, g.selected, "false"), I(o, g.tabindex, "-1");
     }
-    const currentItem = this.carousel.items[currentIndex];
-    const currentIndicator = this.carousel.indicators[currentIndex];
-    if (currentItem) {
-      addClass(currentItem, CLASS_NAMES.itemActive);
-      setAttribute(currentItem, ARIA.current, 'true');
-    }
-    if (currentIndicator) {
-      removeClass(currentIndicator, CLASS_NAMES.indicatorCompleted);
-      addClass(currentIndicator, CLASS_NAMES.indicatorActive);
-      setAttribute(currentIndicator, ARIA.selected, 'true');
-      setAttribute(currentIndicator, ARIA.tabindex, '0');
-      if (this.carousel.autoRotate.isActive) {
-        this.updateIndicatorProgress(currentIndicator);
-      }
-    }
+    const e = this.carousel.items[t], s = this.carousel.indicators[t];
+    e && (f(e, r.itemActive), I(e, g.current, "true")), s && (v(s, r.indicatorCompleted), f(s, r.indicatorActive), I(s, g.selected, "true"), I(s, g.tabindex, "0"), this.carousel.autoRotate.isActive && this.updateIndicatorProgress(s));
   }
-  updateIndicatorProgress(indicator) {
-    setCSSVar(indicator, '--progress-duration', `${this.carousel.options.autoRotateInterval}ms`);
-    setTimeout(() => {
-      if (indicator) {
-        addClass(indicator, CLASS_NAMES.indicatorProgress);
-      }
-    }, DURATIONS.progressReset);
+  updateIndicatorProgress(t) {
+    B(
+      t,
+      "--progress-duration",
+      `${this.carousel.options.autoRotateInterval}ms`
+    ), setTimeout(() => {
+      t && f(t, r.indicatorProgress);
+    }, E.progressReset);
   }
   clearPeekItems() {
-    for (let i = 0; i < this.carousel.items.length; i++) {
-      const item = this.carousel.items[i];
-      removeClass(item, CLASS_NAMES.itemPrev, CLASS_NAMES.itemNext);
+    for (let t = 0; t < this.carousel.items.length; t++) {
+      const e = this.carousel.items[t];
+      v(e, r.itemPrev, r.itemNext);
     }
   }
-  setPeekItems(prevIndex, nextIndex) {
-    const prevItem = this.carousel.items[prevIndex];
-    const nextItem = this.carousel.items[nextIndex];
-    if (prevItem) addClass(prevItem, CLASS_NAMES.itemPrev);
-    if (nextItem) addClass(nextItem, CLASS_NAMES.itemNext);
+  setPeekItems(t, e) {
+    const s = this.carousel.items[t], i = this.carousel.items[e];
+    s && f(s, r.itemPrev), i && f(i, r.itemNext);
   }
-  updateAutoRotateButton(isActive) {
-    const {
-      autoRotateBtn
-    } = this.carousel.elements;
-    if (!autoRotateBtn) return;
-    if (isActive) {
-      addClass(autoRotateBtn, CLASS_NAMES.btnActive);
-      setAttribute(autoRotateBtn, ARIA.pressed, 'true');
-    } else {
-      removeClass(autoRotateBtn, CLASS_NAMES.btnActive);
-      setAttribute(autoRotateBtn, ARIA.pressed, 'false');
-    }
+  updateAutoRotateButton(t) {
+    const { autoRotateBtn: e } = this.carousel.elements;
+    e && (t ? (f(e, r.btnActive), I(e, g.pressed, "true")) : (v(e, r.btnActive), I(e, g.pressed, "false")));
   }
-  addDraggingClass(index, direction) {
-    const item = this.carousel.items[index];
-    if (!item) return;
-    const leftClass = CLASS_NAMES.itemDraggingLeft;
-    const rightClass = CLASS_NAMES.itemDraggingRight;
-    removeClass(item, leftClass, rightClass);
-    if (direction === 'left') {
-      addClass(item, leftClass);
-    } else if (direction === 'right') {
-      addClass(item, rightClass);
-    }
+  addDraggingClass(t, e) {
+    const s = this.carousel.items[t];
+    if (!s) return;
+    const i = r.itemDraggingLeft, o = r.itemDraggingRight;
+    v(s, i, o), e === "left" ? f(s, i) : e === "right" && f(s, o);
   }
-  removeDraggingClass(index) {
-    const item = this.carousel.items[index];
-    if (!item) return;
-    removeClass(item, CLASS_NAMES.itemDraggingLeft, CLASS_NAMES.itemDraggingRight);
+  removeDraggingClass(t) {
+    const e = this.carousel.items[t];
+    e && v(e, r.itemDraggingLeft, r.itemDraggingRight);
   }
-  round(value, decimals = 2) {
-    return Math.round(value * 10 ** decimals) / 10 ** decimals;
+  round(t, e = 2) {
+    return Math.round(t * 10 ** e) / 10 ** e;
   }
-  applyEasing(progress) {
-    return progress * (2 - Math.abs(progress));
+  applyEasing(t) {
+    return t * (2 - Math.abs(t));
   }
-  updateDragTransform(dragDistance) {
-    const {
-      layoutMode
-    } = this.carousel.options;
-    if (layoutMode === 'stack') {
-      // [개발참고] Stack 모드: 탄성 효과 적용 (easeOutQuad)
-      const config = DRAG_TRANSFORM_CONFIG.stack;
-      const clampedDrag = Math.max(-config.maxDrag, Math.min(config.maxDrag, dragDistance));
-      const progress = clampedDrag / config.maxDrag;
-      const easedProgress = this.applyEasing(progress);
-      const dragOffset = this.round(easedProgress * config.offsetMultiplier);
-      const dragRotation = this.round(easedProgress * config.rotationMultiplier);
-      this.carousel.container.style.setProperty('--drag-offset', `${dragOffset}px`);
-      this.carousel.container.style.setProperty('--drag-rotation', `${dragRotation}deg`);
-    } else if (layoutMode === 'radial') {
-      const config = DRAG_TRANSFORM_CONFIG.radial;
-      const dragRotation = this.round(dragDistance * config.rotationSensitivity);
-      this.carousel.container.style.setProperty('--drag-rotation-y', `${dragRotation}deg`);
-    } else if (layoutMode === 'classic') {
-      const config = DRAG_TRANSFORM_CONFIG.classic;
-      const dragOffset = this.round(dragDistance * config.dragSensitivity);
-      this.carousel.container.style.setProperty('--drag-offset', `${dragOffset}px`);
+  updateDragTransform(t) {
+    const { layoutMode: e } = this.carousel.options;
+    if (e === "stack") {
+      const s = T.stack, o = Math.max(-s.maxDrag, Math.min(s.maxDrag, t)) / s.maxDrag, n = this.applyEasing(o), l = this.round(n * s.offsetMultiplier), u = this.round(n * s.rotationMultiplier);
+      this.carousel.container.style.setProperty("--drag-offset", `${l}px`), this.carousel.container.style.setProperty("--drag-rotation", `${u}deg`);
+    } else if (e === "radial") {
+      const s = T.radial, i = this.round(t * s.rotationSensitivity);
+      this.carousel.container.style.setProperty("--drag-rotation-y", `${i}deg`);
+    } else if (e === "classic") {
+      const s = T.classic, i = this.round(t * s.dragSensitivity);
+      this.carousel.container.style.setProperty("--drag-offset", `${i}px`);
     }
   }
   clearDragTransform() {
-    this.carousel.container.style.setProperty('--drag-offset', '0px');
-    this.carousel.container.style.setProperty('--drag-rotation', '0deg');
-    this.carousel.container.style.setProperty('--drag-rotation-y', '0deg');
+    this.carousel.container.style.setProperty("--drag-offset", "0px"), this.carousel.container.style.setProperty("--drag-rotation", "0deg"), this.carousel.container.style.setProperty("--drag-rotation-y", "0deg");
   }
-  destroy() {}
+  destroy() {
+  }
 }
-
-const FULL_CIRCLE_DEGREES = 360;
-class PeekCarousel {
-  constructor(selector, options = {}) {
-    this.container = getElement(selector);
-    if (!this.container) {
-      throw new Error(`PeekCarousel: 셀렉터 "${selector}"에 해당하는 컨테이너를 찾을 수 없습니다`);
-    }
-    this.options = validateOptions(options);
-    this.initElements();
-    if (this.items.length === 0) {
-      throw new Error('PeekCarousel: 캐러셀 아이템을 찾을 수 없습니다');
-    }
+const st = 360;
+class it {
+  constructor(t, e = {}) {
+    if (this.container = N(t), !this.container)
+      throw new Error(`PeekCarousel: 셀렉터 "${t}"에 해당하는 컨테이너를 찾을 수 없습니다`);
+    if (this.options = L(e), this.initElements(), this.items.length === 0)
+      throw new Error("PeekCarousel: 캐러셀 아이템을 찾을 수 없습니다");
     this.state = {
       currentIndex: this.options.startIndex,
-      angleUnit: FULL_CIRCLE_DEGREES / this.totalItems
-    };
-    this.initModules();
-    this.init();
+      angleUnit: st / this.totalItems
+    }, this.initModules(), this.init();
   }
   initElements() {
     this.elements = {
-      carousel: this.container.querySelector(SELECTORS.carousel),
+      carousel: this.container.querySelector(C.carousel),
       prevBtn: null,
       nextBtn: null,
       autoRotateBtn: null,
       controls: null,
       nav: null
-    };
-    this.items = getElements(SELECTORS.item, this.container);
-    this.totalItems = this.items.length;
-    this.indicators = [];
+    }, this.items = $(C.item, this.container), this.totalItems = this.items.length, this.indicators = [];
   }
   initModules() {
-    this.navigator = new Navigator(this);
-    this.animator = new Animator(this);
-    this.autoRotate = new AutoRotate(this);
-    this.eventHandler = new EventHandler(this);
-    this.ui = new UIManager(this);
+    this.navigator = new K(this), this.animator = new Y(this), this.autoRotate = new Z(this), this.eventHandler = new tt(this), this.ui = new et(this);
   }
   init() {
-    this.updateLayoutClass();
-    this.createNavigation();
-    this.createControls();
-    this.injectIcons();
-    this.createCounter();
-    this.setImageLoadingAttributes();
-    this.initCSSVariables();
-    this.eventHandler.init();
-    this.animator.updateCarousel();
-    if (this.options.autoRotate) {
-      this.autoRotate.start();
-    }
-    if (this.options.preloadRange > 0) {
-      this.preloadImages();
-    }
+    this.updateLayoutClass(), this.createNavigation(), this.createControls(), this.injectIcons(), this.createCounter(), this.setImageLoadingAttributes(), this.initCSSVariables(), this.eventHandler.init(), this.animator.updateCarousel(), this.options.autoRotate && this.autoRotate.start(), this.options.preloadRange > 0 && this.preloadImages();
   }
   initCSSVariables() {
-    this.container.style.setProperty('--carousel-rotation', '0deg');
-    this.container.style.setProperty('--drag-offset', '0px');
-    this.container.style.setProperty('--drag-rotation', '0deg');
-    this.container.style.setProperty('--drag-rotation-y', '0deg');
+    this.container.style.setProperty("--carousel-rotation", "0deg"), this.container.style.setProperty("--drag-offset", "0px"), this.container.style.setProperty("--drag-rotation", "0deg"), this.container.style.setProperty("--drag-rotation-y", "0deg");
   }
   createNavigation() {
     if (!this.options.showNavigation) return;
-    const existingNav = this.container.querySelector(`.${CLASS_NAMES.nav}`);
-    if (existingNav) {
-      this.elements.nav = existingNav;
-      this.elements.prevBtn = existingNav.querySelector(SELECTORS.prevBtn);
-      this.elements.nextBtn = existingNav.querySelector(SELECTORS.nextBtn);
+    const t = this.container.querySelector(`.${r.nav}`);
+    if (t) {
+      this.elements.nav = t, this.elements.prevBtn = t.querySelector(C.prevBtn), this.elements.nextBtn = t.querySelector(C.nextBtn);
       return;
     }
-    const nav = document.createElement('div');
-    nav.className = CLASS_NAMES.nav;
-    const prevBtn = document.createElement('button');
-    prevBtn.className = `${CLASS_NAMES.navBtn} ${CLASS_NAMES.btn} ${CLASS_NAMES.prevBtn}`;
-    prevBtn.setAttribute('aria-label', 'Previous');
-    const nextBtn = document.createElement('button');
-    nextBtn.className = `${CLASS_NAMES.navBtn} ${CLASS_NAMES.btn} ${CLASS_NAMES.nextBtn}`;
-    nextBtn.setAttribute('aria-label', 'Next');
-    nav.appendChild(prevBtn);
-    nav.appendChild(nextBtn);
-    this.container.appendChild(nav);
-    this.elements.nav = nav;
-    this.elements.prevBtn = prevBtn;
-    this.elements.nextBtn = nextBtn;
+    const e = document.createElement("div");
+    e.className = r.nav;
+    const s = document.createElement("button");
+    s.className = `${r.navBtn} ${r.btn} ${r.prevBtn}`, s.setAttribute("aria-label", "Previous");
+    const i = document.createElement("button");
+    i.className = `${r.navBtn} ${r.btn} ${r.nextBtn}`, i.setAttribute("aria-label", "Next"), e.appendChild(s), e.appendChild(i), this.container.appendChild(e), this.elements.nav = e, this.elements.prevBtn = s, this.elements.nextBtn = i;
   }
   createControls() {
     if (!this.options.showIndicators && !this.options.showAutoRotateButton) return;
-    const existingControls = this.container.querySelector(`.${CLASS_NAMES.controls}`);
-    if (existingControls) {
-      this.elements.controls = existingControls;
-      const indicatorsWrapper = existingControls.querySelector(`.${CLASS_NAMES.indicators}`);
-      if (indicatorsWrapper && this.options.showIndicators) {
-        indicatorsWrapper.innerHTML = '';
-        this.createIndicators(indicatorsWrapper);
-      }
-      this.elements.autoRotateBtn = existingControls.querySelector(SELECTORS.autoRotateBtn);
+    const t = this.container.querySelector(`.${r.controls}`);
+    if (t) {
+      this.elements.controls = t;
+      const s = t.querySelector(`.${r.indicators}`);
+      s && this.options.showIndicators && (s.innerHTML = "", this.createIndicators(s)), this.elements.autoRotateBtn = t.querySelector(C.autoRotateBtn);
       return;
     }
-    const controls = document.createElement('div');
-    controls.className = CLASS_NAMES.controls;
-    if (this.options.showIndicators) {
-      const indicatorsWrapper = document.createElement('div');
-      indicatorsWrapper.className = CLASS_NAMES.indicators;
-      this.createIndicators(indicatorsWrapper);
-      controls.appendChild(indicatorsWrapper);
+    const e = document.createElement("div");
+    if (e.className = r.controls, this.options.showIndicators) {
+      const s = document.createElement("div");
+      s.className = r.indicators, this.createIndicators(s), e.appendChild(s);
     }
     if (this.options.showAutoRotateButton) {
-      const autoRotateBtn = document.createElement('button');
-      autoRotateBtn.className = `${CLASS_NAMES.autoRotateBtn} ${CLASS_NAMES.btn} ${CLASS_NAMES.btnAutoRotate}`;
-      autoRotateBtn.setAttribute('aria-label', 'Toggle auto-rotate');
-      autoRotateBtn.setAttribute('aria-pressed', 'false');
-      controls.appendChild(autoRotateBtn);
-      this.elements.autoRotateBtn = autoRotateBtn;
+      const s = document.createElement("button");
+      s.className = `${r.autoRotateBtn} ${r.btn} ${r.btnAutoRotate}`, s.setAttribute("aria-label", "Toggle auto-rotate"), s.setAttribute("aria-pressed", "false"), e.appendChild(s), this.elements.autoRotateBtn = s;
     }
-    this.container.appendChild(controls);
-    this.elements.controls = controls;
+    this.container.appendChild(e), this.elements.controls = e;
   }
-  createIndicators(wrapper) {
+  createIndicators(t) {
     this.indicators = [];
-    for (let i = 0; i < this.totalItems; i++) {
-      const indicator = document.createElement('button');
-      const isActive = i === this.state.currentIndex;
-      indicator.className = CLASS_NAMES.indicator;
-      indicator.classList.add(CLASS_NAMES.indicatorPeek);
-      indicator.setAttribute('role', 'tab');
-      indicator.setAttribute('aria-label', `Image ${i + 1}`);
-      indicator.setAttribute('aria-selected', isActive ? 'true' : 'false');
-      indicator.setAttribute('tabindex', isActive ? '0' : '-1');
-      if (isActive) {
-        indicator.classList.add(CLASS_NAMES.indicatorActive);
-      }
-      wrapper.appendChild(indicator);
-      this.indicators.push(indicator);
+    for (let e = 0; e < this.totalItems; e++) {
+      const s = document.createElement("button"), i = e === this.state.currentIndex;
+      s.className = r.indicator, s.classList.add(r.indicatorPeek), s.setAttribute("role", "tab"), s.setAttribute("aria-label", `Image ${e + 1}`), s.setAttribute("aria-selected", i ? "true" : "false"), s.setAttribute("tabindex", i ? "0" : "-1"), i && s.classList.add(r.indicatorActive), t.appendChild(s), this.indicators.push(s);
     }
   }
   injectIcons() {
-    const {
-      prevBtn,
-      nextBtn,
-      autoRotateBtn
-    } = this.elements;
-    if (prevBtn) injectIcon(prevBtn, 'prev');
-    if (nextBtn) injectIcon(nextBtn, 'next');
-    if (autoRotateBtn) injectAutoRotateIcons(autoRotateBtn);
+    const { prevBtn: t, nextBtn: e, autoRotateBtn: s } = this.elements;
+    t && _(t, "prev"), e && _(e, "next"), s && q(s);
   }
   createCounter() {
     if (!this.options.showCounter) return;
-    const existingCounter = this.container.querySelector(`.${CLASS_NAMES.counter}`);
-    if (existingCounter) {
-      this.counterElement = existingCounter;
-      this.updateCounter();
+    const t = this.container.querySelector(`.${r.counter}`);
+    if (t) {
+      this.counterElement = t, this.updateCounter();
       return;
     }
-    const counter = document.createElement('div');
-    counter.className = CLASS_NAMES.counter;
-    counter.setAttribute('aria-live', 'polite');
-    counter.setAttribute('aria-atomic', 'true');
-    counter.innerHTML = `
-      <span class="${CLASS_NAMES.counterCurrent}">${this.state.currentIndex + 1}</span>
-      <span class="${CLASS_NAMES.counterSeparator}">/</span>
-      <span class="${CLASS_NAMES.counterTotal}">${this.totalItems}</span>
-    `;
-    this.container.appendChild(counter);
-    this.counterElement = counter;
+    const e = document.createElement("div");
+    e.className = r.counter, e.setAttribute("aria-live", "polite"), e.setAttribute("aria-atomic", "true"), e.innerHTML = `
+      <span class="${r.counterCurrent}">${this.state.currentIndex + 1}</span>
+      <span class="${r.counterSeparator}">/</span>
+      <span class="${r.counterTotal}">${this.totalItems}</span>
+    `, this.container.appendChild(e), this.counterElement = e;
   }
   updateCounter() {
     if (!this.counterElement) return;
-    const currentSpan = this.counterElement.querySelector(`.${CLASS_NAMES.counterCurrent}`);
-    if (currentSpan) {
-      currentSpan.textContent = this.state.currentIndex + 1;
-    }
+    const t = this.counterElement.querySelector(`.${r.counterCurrent}`);
+    t && (t.textContent = this.state.currentIndex + 1);
   }
   setImageLoadingAttributes() {
-    const {
-      startIndex
-    } = this.options;
-    const preloadRange = this.options.preloadRange || 1;
-    for (let index = 0; index < this.items.length; index++) {
-      const item = this.items[index];
-      const img = item.querySelector(`.${CLASS_NAMES.image}`);
-      if (!img || img.hasAttribute('loading')) continue;
-      const distance = Math.abs(index - startIndex);
-      const isNearby = distance <= preloadRange;
-      img.setAttribute('loading', isNearby ? 'eager' : 'lazy');
+    const { startIndex: t } = this.options, e = this.options.preloadRange || 1;
+    for (let s = 0; s < this.items.length; s++) {
+      const o = this.items[s].querySelector(`.${r.image}`);
+      if (!o || o.hasAttribute("loading")) continue;
+      const l = Math.abs(s - t) <= e;
+      o.setAttribute("loading", l ? "eager" : "lazy");
     }
   }
   updateLayoutClass() {
-    const currentMode = this.currentLayoutMode;
-    const newMode = this.options.layoutMode;
-    if (currentMode && currentMode !== newMode) {
-      this.container.classList.remove(`peek-carousel--${currentMode}`);
-    }
-    this.container.classList.add(`peek-carousel--${newMode}`);
-    this.currentLayoutMode = newMode;
+    const t = this.currentLayoutMode, e = this.options.layoutMode;
+    t && t !== e && this.container.classList.remove(`peek-carousel--${t}`), this.container.classList.add(`peek-carousel--${e}`), this.currentLayoutMode = e;
   }
   preloadImages() {
-    preloadImagesInRange(this.items, this.state.currentIndex, this.options.preloadRange);
+    X(this.items, this.state.currentIndex, this.options.preloadRange);
   }
-
   // [개발참고] Public API
   next() {
     this.navigator.next();
@@ -1349,8 +884,8 @@ class PeekCarousel {
   prev() {
     this.navigator.prev();
   }
-  goTo(index) {
-    this.navigator.goTo(index);
+  goTo(t) {
+    this.navigator.goTo(t);
   }
   startAutoRotate() {
     this.autoRotate.start();
@@ -1362,10 +897,7 @@ class PeekCarousel {
     this.autoRotate.toggle();
   }
   destroy() {
-    this.autoRotate.destroy();
-    this.animator.stopMomentum();
-    this.eventHandler.destroy();
-    this.ui.destroy();
+    this.autoRotate.destroy(), this.animator.stopMomentum(), this.eventHandler.destroy(), this.ui.destroy();
   }
   get currentIndex() {
     return this.state.currentIndex;
@@ -1374,6 +906,7 @@ class PeekCarousel {
     return this.autoRotate.isActive;
   }
 }
-
-export { PeekCarousel as default };
+export {
+  it as default
+};
 //# sourceMappingURL=peek-carousel.esm.js.map
