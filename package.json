@@ -12,9 +12,9 @@
   "style": "dist/peek-carousel.css",
   "exports": {
     ".": {
+      "types": "./types/index.d.ts",
       "import": "./dist/peek-carousel.esm.js",
-      "require": "./dist/peek-carousel.js",
-      "types": "./types/index.d.ts"
+      "require": "./dist/peek-carousel.js"
     },
     "./dist/peek-carousel.css": "./dist/peek-carousel.css",
     "./dist/peek-carousel.min.css": "./dist/peek-carousel.min.css"
@@ -29,20 +29,14 @@
     "LICENSE"
   ],
   "scripts": {
-    "clean": "rm -rf dist",
-    "build:js": "rollup -c",
-    "build:css": "sass src/styles/peek-carousel.scss dist/peek-carousel.css --no-source-map",
-    "build:css:min": "sass src/styles/peek-carousel.scss dist/peek-carousel.min.css --style=compressed --no-source-map",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "build:css": "sass src/styles/peek-carousel.scss dist/peek-carousel.css --no-source-map && postcss dist/peek-carousel.css -o dist/peek-carousel.css",
+    "build:css:min": "sass src/styles/peek-carousel.scss dist/peek-carousel.min.css --style=compressed --no-source-map && postcss dist/peek-carousel.min.css -o dist/peek-carousel.min.css",
     "build:example:css": "postcss examples/example.css -o examples/example.min.css",
     "build:example:js": "terser examples/example.js -o examples/example.min.js -c -m",
-    "postbuild:css": "postcss dist/peek-carousel.css -o dist/peek-carousel.css",
-    "postbuild:css:min": "postcss dist/peek-carousel.min.css -o dist/peek-carousel.min.css",
-    "build": "npm run clean && npm-run-all --parallel build:js build:css build:css:min",
-    "build:examples": "npm-run-all --parallel build:example:css build:example:js",
-    "watch:js": "rollup -c -w",
-    "watch:css": "sass --watch src/styles/peek-carousel.scss dist/peek-carousel.css",
-    "watch": "npm-run-all --parallel watch:js watch:css",
-    "dev": "npm run watch",
+    "postbuild": "npm run build:css && npm run build:css:min",
     "prepublishOnly": "npm run build",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -77,24 +71,18 @@
     "node": ">=14.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.0",
-    "@babel/preset-env": "^7.23.0",
-    "@rollup/plugin-babel": "^6.0.4",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-terser": "^0.4.4",
     "@testing-library/dom": "^10.4.1",
     "@vitest/coverage-v8": "^4.0.16",
     "autoprefixer": "^10.4.16",
     "cssnano": "^6.0.1",
     "happy-dom": "^20.0.11",
     "jsdom": "^27.3.0",
-    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.31",
     "postcss-cli": "^11.0.0",
-    "rollup": "^4.1.4",
-    "rollup-plugin-postcss": "^4.0.2",
     "sass": "^1.69.5",
     "terser": "^5.44.1",
+    "vite": "^7.3.1",
+    "vite-plugin-banner": "^0.8.1",
     "vitest": "^4.0.16"
   }
 }
